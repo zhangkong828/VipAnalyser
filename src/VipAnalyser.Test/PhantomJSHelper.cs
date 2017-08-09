@@ -49,7 +49,7 @@ namespace VipAnalyser.Test
             //忽略SSL证书错误
             _service.IgnoreSslErrors = true;
             //隐藏命令提示窗口
-            _service.HideCommandPromptWindow = true;
+            //_service.HideCommandPromptWindow = true;
             //日志文件路径，为空则 console window
             _service.LogFile = "";
 
