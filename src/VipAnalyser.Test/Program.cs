@@ -37,23 +37,24 @@ namespace VipAnalyser.Test
             //qq快速登录iframe
             if (!web.WaitForElementExists(By.Id("_login_frame_quick_"), 10))
             {
+                //没有登录窗，说明已经登录了
                 return;
             }
             var quick_frame = web.Frame("_login_frame_quick_");
             //登录方式：账号密码登录
             quick_frame.FindElement(By.Id("switcher_plogin")).Click();
             //登录
-            quick_frame.FindElement(By.Id("u")).SendKeys("602488225");
-            quick_frame.FindElement(By.Id("p")).SendKeys("qqoppzk");
+            quick_frame.FindElement(By.Id("u")).SendKeys("1154592077");
+            quick_frame.FindElement(By.Id("p")).SendKeys("lhlcoopf");
             quick_frame.FindElement(By.Id("login_button")).Click();
             //回到 parent window
             var main = quick_frame.SwitchTo().DefaultContent();
             // pageSource = main.PageSource;
             // pageSource = web.GetPageSource();
-            var func = new Func<IWebDriver, bool>(x => { return x.FindElement(By.ClassName("_vip_btn")).Text.Contains("续费"); });
             //等待页面刷新
-            if (!web.WaitFor(func, 10))
+            if (!web.WaitForInvisibilityOfElementLocated(By.ClassName("login_win_type"), 10))
             {
+                //登录窗没有消失，要么账号密码错误，要么需要验证
                 return;
             }
             Console.WriteLine("------------------------------------------");
