@@ -11,35 +11,72 @@ namespace VipAnalyser.Test
     {
         static void Main(string[] args)
         {
-            var web = PhantomJSHelper.Instance;
-
-            var url = "https://v.qq.com/u/history/";
-            var PageSource = string.Empty;
-            web.GoToUrl(url);
-            PageSource= web.GetPageSource();
-            //检查是否有登录弹窗
-            if (web.WaitForElementExists(By.Id("login_win"), 30))
-            {
-                //iframe   _login_frame_quick_
-                web.Frame("_login_frame_quick_");
-                if (web.WaitForElementExists(By.Id("web_qr_login"), 10))
-                {
-                    web.FindElementById("u").SendKeys("");
-                    web.FindElementById("p").SendKeys("");
-                    web.FindElementById("login_button").Click();
-
-                    web.DefaultContent();
-
-                    var s = web.GetPageSource();
-                    Console.WriteLine(s);
-                }
-            }
-
-
-
-
+            PhantomJS();
 
             Console.ReadKey();
+        }
+
+        static void PhantomJS()
+        {
+            var web = PhantomJSHelper.Instance;
+            var pageSource = string.Empty;
+            var url = "https://v.qq.com/u/history/";
+
+            web.GoToUrl(url);
+            //登录前cookie
+            var cookie1 = web.GetAllCookies();
+            Console.WriteLine("登录前cookie");
+            ConsoleCookie(cookie1);
+            //等待 登录弹窗
+            if (!web.WaitForElementExists(By.Id("login_win_type"), 10))
+            {
+                return;
+            }
+            //选择qq登录
+            web.FindElementBy(By.ClassName("btn_qq")).Click();
+            //qq快速登录iframe
+            if (!web.WaitForElementExists(By.Id("_login_frame_quick_"), 10))
+            {
+                return;
+            }
+            var quick_frame = web.Frame("_login_frame_quick_");
+            //登录方式：账号密码登录
+            quick_frame.FindElement(By.Id("switcher_plogin")).Click();
+            //登录
+            quick_frame.FindElement(By.Id("u")).SendKeys("602488225");
+            quick_frame.FindElement(By.Id("p")).SendKeys("qqoppzk");
+            quick_frame.FindElement(By.Id("login_button")).Click();
+            //回到 parent window
+            var main = quick_frame.SwitchTo().DefaultContent();
+            // pageSource = main.PageSource;
+            // pageSource = web.GetPageSource();
+            var func = new Func<IWebDriver, bool>(x => { return x.FindElement(By.ClassName("_vip_btn")).Text.Contains("续费"); });
+            //等待页面刷新
+            if (!web.WaitFor(func, 10))
+            {
+                return;
+            }
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("登录成功");
+            Console.WriteLine("------------------------------------------");
+            //用户名
+            var name = web.FindElementBy(By.ClassName("__nickname")).Text;
+            Console.WriteLine("用户名:{0}", name);
+            //到期时间
+            var vip_time = web.FindElementBy(By.ClassName("_vip_desc")).Text;
+            Console.WriteLine("到期时间:{0}", vip_time);
+            //登录后cookie
+            var cookie2 = web.GetAllCookies();
+            Console.WriteLine("登录后cookie");
+            ConsoleCookie(cookie2);
+        }
+
+        static void ConsoleCookie(Dictionary<string, string> dic)
+        {
+            foreach (var item in dic)
+            {
+                Console.WriteLine("{0}:{1}", item.Key, item.Value);
+            }
         }
     }
 }
