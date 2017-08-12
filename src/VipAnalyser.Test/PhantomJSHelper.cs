@@ -49,7 +49,7 @@ namespace VipAnalyser.Test
             //忽略SSL证书错误
             _service.IgnoreSslErrors = true;
             //隐藏命令提示窗口
-            //_service.HideCommandPromptWindow = true;
+            _service.HideCommandPromptWindow = true;
             //日志文件路径，为空则 console window
             _service.LogFile = "";
 
@@ -114,6 +114,16 @@ namespace VipAnalyser.Test
             return _webDriver.Title;
         }
 
+        public string GetCurrentWindowHandle()
+        {
+            return _webDriver.CurrentWindowHandle;
+        }
+
+        public List<string> GetWindowHandles()
+        {
+            return _webDriver.WindowHandles.ToList();
+        }
+
         /// <summary>
         /// 将焦点设置为具有指定标题的浏览器窗口
         /// </summary>
@@ -147,6 +157,11 @@ namespace VipAnalyser.Test
             }
 
             _webDriver.SwitchTo().Window(theCurrent);
+        }
+
+        public PhantomJSDriver GoToWindow(string handle)
+        {
+            return _webDriver.SwitchTo().Window(handle) as PhantomJSDriver;
         }
 
         public IWebDriver Frame(string name)
