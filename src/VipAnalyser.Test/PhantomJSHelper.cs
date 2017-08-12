@@ -230,6 +230,22 @@ namespace VipAnalyser.Test
             }
         }
 
+        /// <summary>
+        /// 检查某个元素是不可见的或不存在的
+        /// </summary>
+        public bool WaitForInvisibilityOfElementLocated(By by, int timeOut)
+        {
+            try
+            {
+                new WebDriverWait(_webDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.InvisibilityOfElementLocated(by));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool WaitFor(Func<IWebDriver, bool> condition, int timeOut)
         {
             try
