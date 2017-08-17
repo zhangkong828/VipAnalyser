@@ -383,6 +383,13 @@ namespace VipAnalyser.Test
         {
             _webDriver.Manage().Cookies.DeleteCookieNamed(name);
         }
+        public void AddCookie(Dictionary<string, string> dic)
+        {
+            foreach (var item in dic)
+            {
+                AddCookie(item.Key, item.Value);
+            }
+        }
         public void AddCookie(string name, string value)
         {
             _webDriver.Manage().Cookies.AddCookie(new OpenQA.Selenium.Cookie(name, value));
