@@ -39,12 +39,13 @@ namespace VipAnalyser.Test
             FiddlerApplication.BeforeResponse += FiddlerApplication_BeforeResponse;
             FiddlerApplication.Startup(8877, true, true);
 
-
+            Console.WriteLine("监听已启动...");
         }
 
         private static void FiddlerApplication_BeforeResponse(Fiddler.Session oSession)
         {
-            if (oSession.fullUrl.Contains("www.baidu.com/s?"))
+            Console.WriteLine(oSession.fullUrl);
+            if (oSession.fullUrl.Contains("getvinfo"))
             {
                 var body = oSession.ResponseBody;
                 Console.WriteLine(oSession.GetResponseBodyAsString());

@@ -12,47 +12,32 @@ namespace VipAnalyser.Test
     {
         static void Main(string[] args)
         {
-            FiddlerCore.Start();
-            //Console.WriteLine("------------------------------------------");
-            //var web = PhantomJSHelper.Instance;
 
+            FiddlerCore.Start();
+            PhantomJS();
+
+            //https://v.qq.com/x/cover/kds9l8b75jvb6y6.html
+
+
+            var browser = PhantomJSHelper.Instance;
+
+            
             //web.GoToUrl("https://www.baidu.com/");
             //var mainHandle = web.GetCurrentWindowHandle();
 
 
-            ////var js = "window.open('https://www.sogou.com/');";
+            var openJs = "window.open('https://v.qq.com/x/cover/kds9l8b75jvb6y6.html');";
+            browser.ExecuteScript(openJs);
 
-            //var tasks = new List<Task>();
-            ////打开新窗口
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    web.ExecuteScript("window.open('about:blank');");
-            //}
-            //var list = web.GetWindowHandles();
-            //foreach (var item in list)
-            //{
-            //    if (!item.Equals(mainHandle))
-            //    {
-            //        var task = Task.Run(() =>
-            //          {
-            //              var tab = web.GoToWindow(item);
-            //              tab.Navigate().GoToUrl("https://www.sogou.com/");
-            //          });
-            //        tasks.Add(task);
-            //    }
-            //}
-
-            //Thread.Sleep(4000);
-            //Task.WaitAll(tasks.ToArray());
-
-            //foreach (var item in web.GetWindowHandles())
-            //{
-            //    var tab = web.GoToWindow(item);
-            //    Console.WriteLine(tab.Title);
+            Thread.Sleep(1000 * 10);
+            foreach (var item in browser.GetWindowHandles())
+            {
+                var tab = browser.GoToWindow(item);
+                Console.WriteLine(tab.Title);
 
 
-            //}
-            //web.Close();
+            }
+            browser.Close();
             Console.ReadKey();
         }
 
@@ -93,8 +78,8 @@ namespace VipAnalyser.Test
             //登录方式：账号密码登录
             quick_frame.FindElement(By.Id("switcher_plogin")).Click();
             //登录
-            quick_frame.FindElement(By.Id("u")).SendKeys("1154592077");
-            quick_frame.FindElement(By.Id("p")).SendKeys("lhlcoopf");
+            quick_frame.FindElement(By.Id("u")).SendKeys("");
+            quick_frame.FindElement(By.Id("p")).SendKeys("");
             quick_frame.FindElement(By.Id("login_button")).Click();
             //回到 parent window
             var main = quick_frame.SwitchTo().DefaultContent();
@@ -119,6 +104,7 @@ namespace VipAnalyser.Test
             var cookie2 = web.GetAllCookies();
             Console.WriteLine("登录后cookie");
             ConsoleCookie(cookie2);
+            Console.WriteLine("------------------------------------------");
         }
 
         static void ConsoleCookie(Dictionary<string, string> dic)

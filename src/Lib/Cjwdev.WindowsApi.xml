@@ -1,0 +1,1520 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Cjwdev.WindowsApi
+</name>
+</assembly>
+<members>
+<member name="F:Cjwdev.WindowsApi.NativeFileSystem.SharePermission.Read">
+	<summary>
+ Read Only access to the share
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeFileSystem.SharePermission.FullControl">
+	<summary>
+ Full access to the share
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeFileSystem.SharePermission.Change">
+	<summary>
+ Change access (Read + Write) to the share
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeFileSystem.SharePermission">
+	<summary>
+ Specifies the level of access a user should be granted or denied to a share
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.EmptyRecycleBin(System.Boolean,System.Boolean,System.Boolean)">
+	<summary>
+ Deletes all items from the recycle bin on all drives
+ </summary>
+	<param name="RequireConfirmation">Determines whether or not a confirmation window is shown asking the user if they want to delete all items in the recycle bin</param>
+	<param name="ShowProgress">Determines whether or not a window is shown whilst the items are being deleted that shows the progress of the operation</param>
+	<param name="PlaySound">Determines whether or not the relevant system sound is played when the recycle bin is emptied</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.GetRecycleBinItemCount(System.Char)">
+	<summary>
+ Returns the total number of the items in the recycle bin on the specified drive. If the drive letter specified does not exist or there are 
+ no items in the recycle bin then the return value will be 0
+ </summary>
+	<param name="DriveLetter">The drive to query the recycle bin on</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.GetRecycleBinSize(System.Char)">
+	<summary>
+ Returns the total size (in bytes) of the items in the recycle bin on the specified drive. If the drive letter specified does not exist or there are 
+ no items in the recycle bin then the return value will be 0
+ </summary>
+	<param name="DriveLetter">The drive to query the recycle bin on</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.RemoveNetworkDrive(System.Char,System.Boolean)">
+	<summary>
+ Deletes an existing mapped network drive
+ </summary>
+	<param name="DriveLetter">The drive letter to delete, must be a network drive</param>
+	<param name="Force">Force the drive to be deleted even if files are still open on this drive</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.MapNetworkDrive(System.String,System.Char,System.Boolean,System.String,System.String)">
+	<summary>
+ Creates a network drive (aka mapped drive) using the specified drive letter, UNC path and optional credentials
+ </summary>
+	<param name="UncPath">The UNC path (\\servername\share) to map the drive letter to</param>
+	<param name="DriveLetter">The drive letter to use</param>
+	<param name="Persistent">False to have this drive removed when the user logs off. True to have the drive remembered. 
+ This option is the equivelant of the Reconnect At Logon checkbox shown when mapping a drive in Windows Exporer</param>
+	<param name="ConnectionUsername">The username to use for the connection - optional</param>
+	<param name="ConnectionPassword">The password to use for the connection - optional</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.GetUncPathFromNetworkDrive(System.Char)">
+	<summary>
+ Gets the UNC path that a network drive (aka mapped drive) is mapped to
+ </summary>
+	<param name="DriveLetter">The drive letter to get the UNC path for</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.GetFreeSpaceOnRemoteDisk(System.String)">
+	<summary>
+ Gets the amount of free space (in MB) on the specified remote disk. Use System.IO.DriveInfo for local disks
+ </summary>
+	<param name="Path">The disk to get the free space for. Should be a remote path such as \\server\C$  or \\server\normalshare</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.ShareExistingFolder(System.String,System.String,System.String)">
+	<summary>
+ Shares an existing folder on the local computer. Returns NET_API_STATUS.NERR_SUCCESS if successful
+ </summary>
+	<param name="LocalPath">The full local path to the folder that is to be shared, do not use UNC paths</param>
+	<param name="ShareName">The name for the share</param>
+	<param name="ShareComment">An optional comment/description for the share</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.ShareExistingFolder(System.String,System.String,System.String,System.String)">
+	<summary>
+ Shares an existing folder on the local computer or a remote computer. Returns NET_API_STATUS.NERR_SUCCESS if successful
+ </summary>
+	<param name="LocalPath">The full local path to the folder that is to be shared, do not use UNC paths</param>
+	<param name="ShareName">The name for the share</param>
+	<param name="ShareComment">An optional comment/description for the share</param>
+	<param name="ComputerName">The computer to create the share on</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.ShareExistingFolder(System.String,System.String,System.String,System.Collections.Generic.List{Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry})">
+	<summary>
+ Shares an existing folder on the local computer or a remote computer and specifies share permissions. IMPORTANT: Will not work if called from a 64 bit process
+ </summary>
+	<param name="LocalPath">The local path to the folder to be shared. If creating the share on a remote computer then 
+ <param name="ShareName">The name for the share</param>
+		<param name="ShareComment">An optional comment/description for the share</param>
+ the path must be local to the remote computer. Do not use UNC paths</param>
+	<param name="SharePermissions">The share permissions to assign to this share</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.ShareExistingFolder(System.String,System.String,System.String,System.Collections.Generic.List{Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry},System.String)">
+	<summary>
+ Shares an existing folder on the local computer or a remote computer and specifies share permissions. IMPORTANT: Will not work if called from a 64 bit process
+ </summary>
+	<param name="LocalPath">The local path to the folder to be shared. If creating the share on a remote computer then 
+ <param name="ShareName">The name for the share</param>
+		<param name="ShareComment">An optional comment/description for the share</param>
+ the path must be local to the remote computer. Do not use UNC paths</param>
+	<param name="SharePermissions">The share permissions to assign to this share</param>
+	<param name="ComputerName">The remote computer name to create the share on</param>
+</member><member name="P:Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry.DomainName">
+	<summary>
+ The domain name that the user/group in the UserOrGroupName property belongs to
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry.UserOrGroupName">
+	<summary>
+ The name of the user or group that should be granted/denied permission
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry.Permission">
+	<summary>
+ The share permission to grant or deny for the account in UserOrGroupName
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry.AllowOrDeny">
+	<summary>
+ Set to True to allow the rights specified in the Permission property and False to deny the rights specified in the Permission property. 
+ Default is True.
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry.#ctor">
+	<summary>
+ Creates a new instance of the SharePermissionEntry class
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry.#ctor(System.String,System.String,Cjwdev.WindowsApi.NativeFileSystem.SharePermission,System.Boolean)">
+	<summary>
+ Creates a new instance of the SharePermissionEntry class and populates each of the properties within the instance
+ </summary>
+	<param name="Domain">The domain that the user in the AccountName argument belongs to. 
+ Pass String.Empty or Nothing here if you are specifying a 'well known' identity such as the Everyone group in the AccountName argument</param>
+	<param name="AccountName">The username or group name that this permission entry relates to</param>
+	<param name="DesiredPermission">The share permission to grant/deny</param>
+	<param name="AlloworDenyPermission">True to allow the permission, False to deny the permission</param>
+</member><member name="T:Cjwdev.WindowsApi.NativeFileSystem.SharePermissionEntry">
+	<summary>
+ An access rule for a user or group that can be applied to a shared folder to assign share permissions
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeFileSystem">
+	<summary>
+ Provides methods for working with the file system
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeNetwork.RenewIpAddresses(System.Boolean,System.Boolean)">
+	<summary>
+ Renews the DHCP lease for all IPv4 addresses that were acquired via DHCP. Optionally ignores errors encountered on each NIC so that the operation continue to attempt to renew other NICs
+ </summary>
+	<param name="Release">If True then all DHCP IPv4 addresses are released before they are renewed</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeNetwork.RenewIpAddresses(System.Boolean)">
+	<summary>
+ Renews the DHCP lease for all IPv4 addresses that were acquired via DHCP
+ </summary>
+	<param name="Release">If True then all DHCP IPv4 addresses are released before they are renewed</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeNetwork.ReleaseIpAddresses(System.Boolean)">
+	<summary>
+ Releases all IPv4 addresses that were acquired via DHCP. Optionally ignores errors encountered on each NIC so that the operation continue to attempt to release other NICs
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeNetwork.ReleaseIpAddresses">
+	<summary>
+ Releases all IPv4 addresses that were acquired via DHCP
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeNetwork.GetIPv4Interfaces">
+	<summary>
+ Gets all network adapters that have IPv4 addresses
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeNetwork.JoinToDomain(System.String,System.String,System.String)">
+	<summary>
+ Joins the local computer to the specified domain. The computer must be restarted for this change to take effect
+ </summary>
+	<param name="DomainName">The name of the domain to join</param>
+	<param name="DomainUsername">The username to use to connect to the domain</param>
+	<param name="DomainPassword">The password for the username specified in the DomainUsername parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeNetwork.JoinToDomain(System.String,System.String,System.String,System.String)">
+	<summary>
+ Joins a remote computer to the specified domain. The computer must be restarted for this change to take effect
+ </summary>
+	<param name="DomainName">The name of the domain to join</param>
+	<param name="DomainUsername">The username to use to connect to the domain</param>
+	<param name="DomainPassword">The password for the username specified in the DomainUsername parameter</param>
+	<param name="MachineName">The computer to join to the domain</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeNetwork.RemoveFromDomain(System.String,System.String,System.String)">
+	<summary>
+ Removes the specified computer from the domain it is currently joined to. The computer must be restarted for this change to take effect
+ </summary>
+	<param name="MachineName">The name or IP address of the computer to remove from the domain - pass Nothing to use the local computer</param>
+	<param name="DomainOrLocalUsername">The username of an account that has local administrator permissions on the computer. A domain account should be used if possible so that the domain can be updated</param>
+	<param name="DomainOrLocalPassword">The password for the account specified in the DomainOrLocalUsername parameter</param>
+</member><member name="T:Cjwdev.WindowsApi.NativeNetwork">
+	<summary>
+ Provides network related methods
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeDll.DoesMethodExistInDll(System.String,System.String)">
+	<summary>
+ Determines if a method exists in an unmanaged DLL
+ </summary>
+	<param name="moduleName">The DLL to look for the method in</param>
+	<param name="methodName">The method to look for</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeDll.GetResourceString(System.String)">
+	<summary>
+ Extracts a resource string from the specified resource address
+ </summary>
+	<param name="ResourcePath">The </param>
+</member><member name="T:Cjwdev.WindowsApi.NativeDll">
+	<summary>
+ Provides methods for working with DLL files
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Cjwdev.WindowsApi.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Cjwdev.WindowsApi.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeMemoryReader.TargetProcess">
+	<summary>
+ The process that memory will be read from when ReadMemory is called
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeMemoryReader.TargetProcessHandle">
+	<summary>
+ The handle to the process that was retrieved during the constructor or the last 
+ successful call to the Open method
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeMemoryReader.ReadMemory(System.IntPtr,System.Int32)">
+	<summary>
+ Reads the specified number of bytes from an address in the process's memory. 
+ All memory in the specified range must be available or the method will fail. 
+ Returns Nothing if the method fails for any reason
+ </summary>
+	<param name="MemoryAddress">The address in the process's virtual memory to start reading from</param>
+	<param name="Count">The number of bytes to read</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeMemoryReader.Open">
+	<summary>
+ Gets a handle to the process specified in the TargetProcess property. 
+ A handle is automatically obtained by the constructor of this class but if the Close 
+ method has been called to close a previously obtained handle then another handle can 
+ be obtained by calling this method. If a handle has previously been obtained and Close has
+ not been called yet then an exception will be thrown.
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeMemoryReader.Close">
+	<summary>
+ Closes a handle that was previously obtained by the constructor or a call to the Open method
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeMemoryReader.#ctor(System.Diagnostics.Process)">
+	<summary>
+ Creates a new instance of the NativeMemoryReader class and attempts to get a handle to the 
+ process that is to be read by calls to the ReadMemory method. 
+ If a handle cannot be obtained then an exception is thrown
+ </summary>
+	<param name="ProcessToRead">The process that memory will be read from</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeMemoryReader.Dispose">
+	<summary>
+ Releases resources and closes any process handles that are still open
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeMemoryReader">
+	<summary>
+ Provides methods for reading memory from a process's virtual memory
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeIcon.GetIconAtIndex(System.String,System.Int32,System.Boolean)">
+	<summary>
+ Gets the icon that is at the specified index in the exe, dll or ico file
+ </summary>
+	<param name="FilePath">The exe, dll or ico file to extract the icon from</param>
+	<param name="Index">The zero-based index of the icon to be extracted</param>
+	<param name="GetSmallIcon">Set to True to extract the small version of the icon, usually 16 x 16 in size</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeIcon.GetIconHandleAtIndex(System.String,System.Int32,System.Boolean)">
+	<summary>
+ Gets a handle to the icon that is at the specified index in the exe, dll or ico file
+ </summary>
+	<param name="FilePath">The exe, dll or ico file to extract the icon from</param>
+	<param name="Index">The zero-based index of the icon to be extracted</param>
+	<param name="GetSmallIcon">Set to True to extract the small version of the icon, usually 16 x 16 in size</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeIcon.GetAllIcons(System.String,System.Boolean)">
+	<summary>
+ Extracts all icons from the specified exe, dll or ico file
+ </summary>
+	<param name="FilePath">The path to the exe, dll or ico file to extract icons from</param>
+	<param name="GetSmallIcons">Set to True to extract the small versions of icons, usually 16 x 16 in size</param>
+</member><member name="T:Cjwdev.WindowsApi.NativeIcon">
+	<summary>
+ Provides methods for extracting icons from icon files
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeOperatingSystem.Is64BitOperatingSystem">
+	<summary>
+ Determines whether or not the Operating System is 64 bit
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeOperatingSystem.UserProfilesDirectory">
+	<summary>
+ Retrieves the path to the root directory where all user profiles are stored
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeOperatingSystem.InstallFontForCurrentSession(System.String)">
+	<summary>
+ Installs a font that is available for the current session only, the font will not be available in other sessions and will be lost when the user logs off. Does not require administrator permissions
+ </summary>
+	<param name="FontFile">The full path to the font file to be installed</param>
+	<remarks></remarks>
+</member><member name="M:Cjwdev.WindowsApi.NativeOperatingSystem.RemoveFontForCurrentSession(System.String)">
+	<summary>
+ Removes a font from system font table for the current session only. Does not require administrator permissions
+ </summary>
+	<param name="FontFile">The full path to the font file to be removed</param>
+	<remarks></remarks>
+</member><member name="M:Cjwdev.WindowsApi.NativeOperatingSystem.DeleteUserProfile(System.String)">
+	<summary>
+ Removes the specified user's profile and all user related settings from the local computer
+ </summary>
+	<param name="UsernameToDelete">The fully qualified username to remove the profile for - this cannot be the user that is currently logged on</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeOperatingSystem.RenameComputer(System.String)">
+	<summary>
+ Renames the local computer and the corresponding domain account if the machine is joined to a domain
+ </summary>
+	<param name="NewName">The name to rename the computer to</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeOperatingSystem.RefreshDevices">
+	<summary>
+ Causes the OS to refresh the list of connected devices - equivelant to doing Scan For Hardware Changes in device manager
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeOperatingSystem">
+	<summary>
+ Provides methods for interacting with and querying the OS
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.#ctor(System.IntPtr,System.String,System.Diagnostics.Process,System.String,System.Drawing.Icon)">
+	<summary>
+ Creates a new instance of the NativeWindow class and populates each of the properties within, including the Icon property
+ </summary>
+	<param name="Hwnd">A handle to the window</param>
+	<param name="TitleText">The text displayed in the window's title bar</param>
+	<param name="Owner">The process that created this window. Can be Nothing</param>
+	<param name="NativeClassName">The name of the class that this window belongs to</param>
+	<param name="WindowIcon">The icon for the window</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.#ctor(System.IntPtr,System.String,System.Diagnostics.Process,System.String)">
+	<summary>
+ Creates a new instance of the NativeWindow class and populates each of the properties within, excluding the Icon property
+ </summary>
+	<param name="Hwnd">A handle to the window</param>
+	<param name="TitleText">The text displayed in the window's title bar</param>
+	<param name="Owner">The process that created this window. Can be Nothing</param>
+	<param name="NativeClassName">The name of the class that this window belongs to</param>
+</member><member name="P:Cjwdev.WindowsApi.NativeWindow.Title">
+	<summary>
+ The text displayed in the window's title bar
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeWindow.Handle">
+	<summary>
+ A handle to the window
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeWindow.OwningProcess">
+	<summary>
+ The process that created this window
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeWindow.ClassName">
+	<summary>
+ The name of the class that this window belongs to
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeWindow.Icon">
+	<summary>
+ The icon that is shown in the top left corner of the window in the title bar
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.Flash">
+	<summary>
+ Flashes the window title bar and taskbar item until the window gets focus
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.Hide">
+	<summary>
+ Makes the window invisible - the window will no longer be found by methods such as GetTopLevelWindows
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.Minimize">
+	<summary>
+ Minimizes the window
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.Maximize">
+	<summary>
+ Maximises the window
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.Show">
+	<summary>
+ Shows the window if it is hidden or restores a minimized/maximized window back to its normal state
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.Restore">
+	<summary>
+ Restores the window to its normal state (ie not maximized and not minimized)
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.Close">
+	<summary>
+ Closes the window - will not work if the window is not processing window messages (ie Not Responding)
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetChildren">
+	<summary>
+ Returns a list of all child windows of this window
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetSize">
+	<summary>
+ Gets the size in pixels of this window
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.SetParent(Cjwdev.WindowsApi.NativeWindow)">
+	<summary>
+ Makes this window a child of the specified window
+ </summary>
+	<param name="ParentWindow">The window to make this window a child of</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.MakeTopMost">
+	<summary>
+ Makes this window a topmost window - it will always be in front of other windows even when it does not have focus
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.MakeNotTopMost">
+	<summary>
+ Stops this window from being a topmost window
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.ToString">
+	<summary>
+ A string representation of the handle, class name, title and process name for this window
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.CheckHandle(System.String)">
+	<summary>
+ Checks to see if the Handle property of this instance is valid and throws an exception if not
+ </summary>
+	<param name="MethodName">The name of the method calling this method</param>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.FlashItemOption.FlashTitleBar">
+	<summary>
+ Only flashes the window's title bar and border, not the window's item/icon on the taskbar
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.FlashItemOption.FlashTaskbar">
+	<summary>
+ Only flashes the window's item/icon on the taskbar
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.FlashItemOption.FlashTitleAndTaskbar">
+	<summary>
+ Flashes both the item on the taskbar and the window itself. 
+ Equivelant to using both FlashTitleBar and FlashTaskbar
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeWindow.FlashItemOption">
+	<summary>
+ Specifies which part of a window should be flashed when used with FlashWindow
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.FlashDurationOption.FlashUntilFlashStopSet">
+	<summary>
+ Flash until StopFlashWindow is called
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.FlashDurationOption.FlashUntilWindowActivated">
+	<summary>
+ Flash until the window has got focus
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeWindow.FlashDurationOption">
+	<summary>
+ Specifies when a window should stop flashing
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.WindowStateOption.Hide">
+	<summary>
+ Hides the window
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.WindowStateOption.Normal">
+	<summary>
+ Restores the window to its normal state (not maximized, minimized or hidden)
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.WindowStateOption.Maximize">
+	<summary>
+ Maximizes the window
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeWindow.WindowStateOption.Minimize">
+	<summary>
+ Minimizes the window
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeWindow.WindowStateOption">
+	<summary>
+ Options that can be passed to the ShowWindow method to specify how the window should be shown
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.MakeWindowTopMost(System.IntPtr)">
+	<summary>
+ Makes the specified window a topmost window - it will always be in front of other windows even when it does not have focus
+ </summary>
+	<param name="TargetWindowHandle">A handle to the window to make topmost</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.MakeWindowTopMost(Cjwdev.WindowsApi.NativeWindow)">
+	<summary>
+ Makes the specified window a topmost window - it will always be in front of other windows even when it does not have focus
+ </summary>
+	<param name="TargetWindow">The window to make topmost</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.MakeWindowNotTopMost(Cjwdev.WindowsApi.NativeWindow)">
+	<summary>
+ Stops the specified window from being a topmost window
+ </summary>
+	<param name="TargetWindow">The window to stop being topmost</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.MakeWindowNotTopmost(System.IntPtr)">
+	<summary>
+ Stops the specified window from being a topmost window
+ </summary>
+	<param name="TargetWindowHandle">A handle to the window to stop being topmost</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.SetParentWindow(Cjwdev.WindowsApi.NativeWindow,Cjwdev.WindowsApi.NativeWindow)">
+	<summary>
+ Makes the specified window a child of another specified window
+ </summary>
+	<param name="Child">The window to be made a child of the parent window</param>
+	<param name="Parent">The window to be come the parent of the child window</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetActiveWindow">
+	<summary>
+ Gets the currently active window (aka foreground window)
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetWindowSize(System.IntPtr)">
+	<summary>
+ Gets the size of the specified window in pixels. 
+ Note that when a window is minimized its size is changed to the same size as all other minimized windows
+ </summary>
+	<param name="Handle">A handle to the window to get the size of</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetWindowSize(System.String)">
+	<summary>
+ Gets the size of the specified window in pixels. 
+ Note that when a window is minimized its size is changed to the same size as all other minimized windows
+ </summary>
+	<param name="Title">The full title of the window to get the size of</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetWindowFromTitle(System.String)">
+	<summary>
+ Looks for a currently open window with the specified title and returns a NativeWindow object representing it. 
+ Use GetWindowFromPartialTitle if you do not know the full title of the window
+ </summary>
+	<param name="Title">The title of the window to find</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetWindowsFromPartialTitle(System.String)">
+	<summary>
+ Gets a list of all open windows that have the specified string somewhere in their title
+ </summary>
+	<param name="PartialTitle">The string to search for in each window's title</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.FlashWindow(System.IntPtr,Cjwdev.WindowsApi.NativeWindow.FlashItemOption,Cjwdev.WindowsApi.NativeWindow.FlashDurationOption)">
+	<summary>
+ Makes a window flash to alert a user that it requires attention
+ </summary>
+	<param name="Handle">A handle to the window to flash</param>
+	<param name="Item">The part of the window to flash - title bar, taskbar, or both</param>
+	<param name="Duration">Determines when the flashing stops</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.StopFlashWindow(System.IntPtr)">
+	<summary>
+ Stops a window from flashing
+ </summary>
+	<param name="Handle">A handle to the window to stop flashing</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.SetWindowState(System.IntPtr,Cjwdev.WindowsApi.NativeWindow.WindowStateOption)">
+	<summary>
+ Modifies a window's visible state - minimizing, hiding, showing or maximizing the window
+ </summary>
+	<param name="hwnd">A handle to the window that should be modified</param>
+	<param name="state">The desired change to the windows state</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetChildWindows(System.IntPtr)">
+	<summary>
+ Returns a list of all windows that are child windows of the specified window
+ </summary>
+	<param name="ParentWindowHandle">A handle to the parent window to enumerate the children of</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetTopLevelWindows">
+	<summary>
+ Returns a list of all visible top level windows
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetTopLevelWindows(System.Boolean)">
+	<summary>
+ Returns a list of all top level windows, optionally including invisible windows
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.FromHandle(System.IntPtr)">
+	<summary>
+ Returns a NativeWindow instance populated with the relevant window information based on the window handle provided
+ </summary>
+	<param name="Hwnd">A handle to the window that this instance should represent</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.EnumWindowsCallBack(System.IntPtr,System.IntPtr)">
+	<summary>
+ Callback function for the EnumWindows API - this function will be called once for each top level window that is found
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeWindow.GetClassLongCpuIndependent(System.IntPtr,System.Int32)">
+	<summary>
+ Calls GetClassLong if this is a 32 bit process or GetClassLongPtr if this is a 64 bit process
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeWindow">
+	<summary>
+ Provides methods and properties for working with external windows
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeProcess.GetCommandLineX86(System.Diagnostics.Process)">
+	<summary>
+ Gets the command line that was used to start a process, including any command line arguments. Only works if both the calling process and target process are x86 (32 bit) processes
+ </summary>
+	<param name="TargetProcess">The process to get the command line for</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeProcess.GetParentProcess(System.Diagnostics.Process)">
+	<summary>
+ Gets a System.Diagnostics.Process object for the process that started the specified process. 
+ Returns Nothing if the parent process is no longer running
+ </summary>
+	<param name="ChildProcess">The process to get the parent process for</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeProcess.IsWow64Process(System.Diagnostics.Process)">
+	<summary>
+ Determines whether or not the specified process is a 32 bit process running on a 64 bit operating system
+ </summary>
+	<param name="TargetProcess">The process to check</param>
+</member><member name="T:Cjwdev.WindowsApi.NativeProcess">
+	<summary>
+ Provides information about processes 
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeService.Name">
+	<summary>
+ The service name
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeService.DisplayName">
+	<summary>
+ The display name of the service
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeService.ProcessID">
+	<summary>
+ The ID of the process that this service is running in
+ </summary>
+</member><member name="P:Cjwdev.WindowsApi.NativeService.State">
+	<summary>
+ The state of the service
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.#ctor(System.String,System.String,System.Int32,Cjwdev.WindowsApi.NativeService.ServiceState)">
+	<summary>
+ Creates a new instance of the NativeService class
+ </summary>
+	<param name="ServiceName">The name of the service</param>
+	<param name="FriendlyName">The display name of the service</param>
+	<param name="ID">The process ID of the service</param>
+	<remarks></remarks>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.ToString">
+	<summary>
+ A string representation of the service's display name and state
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceStateToEnumerate.Active">
+	<summary>
+ Services that are Start Pending, Stop Pending, Running, Continue Pending, Pause Pending, or Paused
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceStateToEnumerate.Stopped">
+	<summary>
+ Services that are Stopped
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceStateToEnumerate.All">
+	<summary>
+ All services
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeService.ServiceStateToEnumerate">
+	<summary>
+ Defines which services are included when enumerating services
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceState.Unknown">
+	<summary>
+ The service's state could not be determined
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceState.Stopped">
+	<summary>
+ The service is stopped
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceState.StartPending">
+	<summary>
+ The service is starting
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceState.StopPending">
+	<summary>
+ The service is stopping
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceState.Running">
+	<summary>
+ The service is running
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceState.ContinuePending">
+	<summary>
+ The service is about to continue
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceState.PausePending">
+	<summary>
+ The service is pausing
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.NativeService.ServiceState.Paused">
+	<summary>
+ The service is paused
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.NativeService.ServiceState">
+	<summary>
+ All possible Windows Service states
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.GetServicesFromProcess(System.Diagnostics.Process)">
+	<summary>
+ Gets a list of Windows Services that are running within a given process
+ </summary>
+	<param name="TargetProcess">The process to look for services in</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.GetServices(Cjwdev.WindowsApi.NativeService.ServiceStateToEnumerate)">
+	<summary>
+ Returns a list of all Windows services that are in the specified state on the local computer
+ </summary>
+	<param name="State">Only services that are in this state will be returned</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.GetServices(Cjwdev.WindowsApi.NativeService.ServiceStateToEnumerate,System.String)">
+	<summary>
+ Returns a list of all Windows services that are in the specified state on a remote computer
+ </summary>
+	<param name="State">Only services that are in this state will be returned</param>
+	<param name="MachineName">The computer to get the list of services from</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.DeleteService(System.String)">
+	<summary>
+ Removes the specified service from the local computer. The executable file that contains the service code will not be deleted. 
+ If the service is running when this method is called, it will be marked for deletion so will be deleted when it is next stopped.
+ </summary>
+	<param name="ServiceName">The name of the service to remove. This is the system name for the service, not the display name</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.DeleteService(System.String,System.String)">
+	<summary>
+ Removes the specified service from the remote computer specified. The executable file that contains the service code will not be deleted. 
+ If the service is running when this method is called, it will be marked for deletion so will be deleted when it is next stopped.
+ </summary>
+	<param name="ServiceName">The name of the service to remove. This is the system name for the service, not the display name</param>
+	<param name="MachineName">The name of the computer to remove the service from</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.InstallAndStartService(System.String,System.String,System.String,System.String,Cjwdev.WindowsApi.NativeService.ServiceStartupType,Cjwdev.WindowsApi.NativeService.ServiceLogonAccount)">
+	<summary>
+ Creates a service on the specified computer and then attempts to start it
+ </summary>
+	<param name="MachineName">The computer to install the service on</param>
+	<param name="ExecutablePath">The full path to the executable file that this service will run</param>
+	<param name="ServiceName">The system name for the new service</param>
+	<param name="Displayname">The display name for the new service</param>
+	<param name="StartType">How this service should be started when the system boots</param>
+	<param name="LogonAccount">The system account that this service should run under</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.InstallAndStartService(System.String,System.String,System.String,System.String,Cjwdev.WindowsApi.NativeService.ServiceStartupType,System.String,System.String)">
+	<summary>
+ Creates a service on the specified computer and then attempts to start it
+ </summary>
+	<param name="MachineName">The computer to install the service on</param>
+	<param name="ExecutablePath">The full path to the executable file that this service will run</param>
+	<param name="ServiceName">The system name for the new service</param>
+	<param name="Displayname">The display name for the new service</param>
+	<param name="StartType">How this service should be started when the system boots</param>
+	<param name="LogonUsername">The username that this service should run under - the account must have been granted the Log On As Service permission</param>
+	<param name="LogonPassword">The password for the account specified in the LogonUsername parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.InstallService(System.String,System.String,System.String,System.String,Cjwdev.WindowsApi.NativeService.ServiceStartupType,Cjwdev.WindowsApi.NativeService.ServiceLogonAccount)">
+	<summary>
+ Creates a service on the specified computer and then attempts to start it
+ </summary>
+	<param name="MachineName">The computer to install the service on</param>
+	<param name="ExecutablePath">The full path to the executable file that this service will run</param>
+	<param name="ServiceName">The system name for the new service</param>
+	<param name="Displayname">The display name for the new service</param>
+	<param name="StartType">How this service should be started when the system boots</param>
+	<param name="LogonAccount">The system account that this service should run under</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.InstallService(System.String,System.String,System.String,System.String,Cjwdev.WindowsApi.NativeService.ServiceStartupType,System.String,System.String)">
+	<summary>
+ Creates a service on the specified computer
+ </summary>
+	<param name="MachineName">The computer to install the service on</param>
+	<param name="ExecutablePath">The full path to the executable file that this service will run</param>
+	<param name="ServiceName">The system name for the new service</param>
+	<param name="Displayname">The display name for the new service</param>
+	<param name="StartType">How this service should be started when the system boots</param>
+	<param name="LogonUsername">The username that this service should run under - the account must have been granted the Log On As Service permission</param>
+	<param name="LogonPassword">The password for the account specified in the LogonUsername parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.NativeService.GetServiceControlManagerHandle(System.String,System.UInt32)">
+	<summary>
+ Gets a handle to the Service Control Manager (SCM) database with the specified level of access
+ </summary>
+	<param name="MachineName">The computer to connect to the SCM on</param>
+	<param name="Access">The level of access required to the SCM - see http://msdn.microsoft.com/en-us/library/ms685981(v=VS.85).aspx for a list of access levels</param>
+</member><member name="T:Cjwdev.WindowsApi.NativeService">
+	<summary>
+ Provides methods for working with Windows Services
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.STARTUPINFO">
+	<summary>
+ Startup information for a new process that is to be launched via CreateProcess/CreateProcessAsUser etc
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.PROCESS_INFORMATION">
+	<summary>
+ Contains information about a newly created process and its primary thread. Used with the CreateProcess functions
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.IP_INTERFACE_INFO">
+	<summary>
+ Information about the IPv4 enabled network interfaces in the computer. Used by GetInterfaceInfo
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.IP_ADAPTER_INDEX_MAP">
+	<summary>
+ The name and index of an IPv4 enabled network interface. Used by GetInterfaceInfo, IpReleaseAddress and IpRenewAddress
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.NET_API_STATUS">
+	<summary>
+ Values returned by the NET functions, such as NetShareAdd and NetJoinDomain
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_502">
+	<summary>
+ Provides detailed information for a share being created by the NetShareAdd method
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.SECURITY_DESCRIPTOR">
+	<summary>
+ Specifies permissions for objects, for example a shared object being created by the NetShareAdd method
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.ACCESS_MASK">
+	<summary>
+ Bitmask values for specifying the access mask value in an ACL entry
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.ACCESS_MODE">
+	<summary>
+ Values that indicate how the access rights in an EXPLICIT_ACCESS structure apply to the trustee
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.MULTIPLE_TRUSTEE_OPERATION">
+	<summary>
+ Indicates whether a TRUSTEE structure is an impersonation trustee
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.TRUSTEE_FORM">
+	<summary>
+ Values that indicate the type of data held in the ptstrName member of the TRUSTEE structure.
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.TRUSTEE_TYPE">
+	<summary>
+ Values that indicate the type of trustee identified by a TRUSTEE structure.
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.EXPLICIT_ACCESS">
+	<summary>
+ Defines access control information for a specified trustee
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.TRUSTEE">
+	<summary>
+ Identifies the user account, group, or logon session to which an access control entry (ACE) applies
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2.shi2_netname">
+	<summary>
+ The share name
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2.shi2_type">
+	<summary>
+ The share type - specify STYPE_DISKTREE for a folder
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2.shi2_remark">
+	<summary>
+ A description or comment for the share
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2.shi2_permissions">
+	<summary>
+ Share-level permissions - not supported by Windows so set to 0
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2.shi2_max_uses">
+	<summary>
+ The maximum number of connections to this share that should be allowed
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2.shi2_current_uses">
+	<summary>
+ Ignored when used with NetShareAdd, so set to 0
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2.shi2_path">
+	<summary>
+ The local path to the folder that is to be shared
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2.shi2_passwd">
+	<summary>
+ Share-level password - not supported by Windows so set to Nothing
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2">
+	<summary>
+ Used by the NetShareAdd API to specify basic share settings
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.SP_DEVINFO_DATA">
+	<summary>
+ Used by the CM_Locate_DevNode API
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.Process_Basic_Information.ExitStatus">
+	<summary>
+ Exit code
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.Process_Basic_Information.PebBaseAddress">
+	<summary>
+ Pointer to more information about the process (PEB)
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.Process_Basic_Information.AffinityMask">
+	<summary>
+ Processor affinity mask
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.Process_Basic_Information.BasePriority">
+	<summary>
+ Process priority, e.g 8 = Normal priority, 13 = High priority
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.Process_Basic_Information.UniqueProcessID">
+	<summary>
+ Process ID
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.Process_Basic_Information.InheritedFromUniqueProcessId">
+	<summary>
+ Process ID of parent process, still available even if parent process has closed
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.Process_Basic_Information">
+	<summary>
+ Holds basic information about a process, used by NtQueryInformationProcess function
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.HIGHCONTRAST">
+	<summary>
+ Used by the SystemParametersInfo API to specify that high contrast mode should be enabled
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.NETRESOURCE">
+	<summary>
+ Contains information about a network resource. Used by the WNetAddConnection2 method
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.ENUM_SERVICE_STATUS_PROCESS">
+	<summary>
+ Contains information about a Windows service
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.SERVICE_STATUS_PROCESS">
+	<summary>
+ Contains information about the current status of a Windows service
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.FLASHWINFO.cbSize">
+	<summary>
+ The size of this structure
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.FLASHWINFO.hwnd">
+	<summary>
+ A handle to the window to flash 
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.FLASHWINFO.dwFlags">
+	<summary>
+ The flash parameters that specify what to flash and for how long
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.FLASHWINFO.uCount">
+	<summary>
+ The number of times to flash the window. 0 = infinite
+ </summary>
+</member><member name="F:Cjwdev.WindowsApi.ApiDefinitions.FLASHWINFO.dwTimeout">
+	<summary>
+ The length of time between flashes. 0 = OS default
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.FLASHWINFO">
+	<summary>
+ Used to specify parameters for the FlashWindowEx function
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.POWER_POLICY">
+	<summary>
+ Contains power policy settings that are unique to each power scheme
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.MACHINE_POWER_POLICY">
+	<summary>
+ Contains computer power policy settings that are unique to each power scheme on the computer. This structure is part of the POWER_POLICY structure
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.USER_POWER_POLICY">
+	<summary>
+ Contains power policy settings that are unique to each power scheme for a user. This structure is part of the POWER_POLICY structure
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.POWER_ACTION_POLICY">
+	<summary>
+ Contains information used to set the system power state
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.GLOBAL_POWER_POLICY">
+	<summary>
+ Contains global power policy settings that apply to all power schemes
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.GLOBAL_USER_POWER_POLICY">
+	<summary>
+ Contains global user power policy settings that apply to all power schemes for a user. This structure is part of the GLOBAL_POWER_POLICY structure
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.GLOBAL_MACHINE_POWER_POLICY">
+	<summary>
+ Contains global computer power policy settings that apply to all power schemes for all users. This structure is part of the GLOBAL_POWER_POLICY structure
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.SYSTEM_POWER_LEVEL">
+	<summary>
+ Contains information about system battery drain policy settings. This structure is part of the GLOBAL_USER_POWER_POLICY structure
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.SHQUERYRBINFO">
+	<summary>
+ Contains the size and item count information retrieved by the SHQueryRecycleBin function
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.RECT">
+	<summary>
+ Defines the coordinates of the upper-left and lower-right corners of a rectangle
+ </summary>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.COMPUTER_NAME_FORMAT">
+	<summary>
+ Specifies the format of a computer name
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.WTSGetActiveConsoleSessionId">
+	<summary>
+ Retrieves the Remote Desktop Services session that is currently attached to the physical console
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.WTSQueryUserToken(System.UInt32,System.IntPtr@)">
+	<summary>
+ Obtains the primary access token of the logged-on user specified by the session ID
+ </summary>
+	<param name="SessionId">A Remote Desktop Services session identifier</param>
+	<param name="phToken">If the function succeeds, receives a pointer to the token handle for the logged-on user. Note that you must call the CloseHandle function to close this handle</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.CreateProcessAsUser(System.IntPtr,System.String,System.String,System.IntPtr,System.IntPtr,System.Boolean,System.UInt32,System.IntPtr,System.String,Cjwdev.WindowsApi.ApiDefinitions.STARTUPINFO@,Cjwdev.WindowsApi.ApiDefinitions.PROCESS_INFORMATION@)">
+	<summary>
+ Creates a new process and its primary thread. The new process runs in the security context of the user represented by the specified token
+ </summary>
+	<param name="hToken">A handle to the primary token that represents a user. The handle must have the TOKEN_QUERY, TOKEN_DUPLICATE, and TOKEN_ASSIGN_PRIMARY access rights</param>
+	<param name="lpApplicationName">The name of the module to be executed. The lpApplicationName parameter can be NULL. In that case, the module name must be the first white space–delimited token in the lpCommandLine string</param>
+	<param name="lpCommandLine">The command line to be executed. The maximum length of this string is 32K characters. The lpCommandLine parameter can be NULL. In that case, the function uses the string pointed to by lpApplicationName as the command line</param>
+	<param name="lpProcessAttributes">A pointer to a SECURITY_ATTRIBUTES structure that specifies a security descriptor for the new process object and determines whether child processes can inherit the returned handle to the process. If lpProcessAttributes is NULL or lpSecurityDescriptor is NULL, the process gets a default security descriptor and the handle cannot be inherited</param>
+	<param name="lpThreadAttributes">A pointer to a SECURITY_ATTRIBUTES structure that specifies a security descriptor for the new thread object and determines whether child processes can inherit the returned handle to the thread. If lpThreadAttributes is NULL or lpSecurityDescriptor is NULL, the thread gets a default security descriptor and the handle cannot be inherited</param>
+	<param name="bInheritHandles">If this parameter is TRUE, each inheritable handle in the calling process is inherited by the new process. You cannot inherit handles across sessions. Additionally, if this parameter is TRUE, you must create the process in the same session as the caller</param>
+	<param name="dwCreationFlags">The flags that control the priority class and the creation of the process</param>
+	<param name="lpEnvironment">A pointer to an environment block for the new process. If this parameter is NULL, the new process uses the environment of the calling process</param>
+	<param name="lpCurrentDirectory">The full path to the current directory for the process. The string can also specify a UNC path. If this parameter is NULL, the new process will have the same current drive and directory as the calling process</param>
+	<param name="lpStartupInfo">A pointer to a STARTUPINFO or STARTUPINFOEX structure</param>
+	<param name="lpProcessInformation">A pointer to a PROCESS_INFORMATION structure that receives identification information about the new process</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.DestroyEnvironmentBlock(System.IntPtr)">
+	<summary>
+ Frees environment variables created by the CreateEnvironmentBlock function
+ </summary>
+	<param name="lpEnvironment">Pointer to the environment block created by CreateEnvironmentBlock. The environment block is an array of null-terminated Unicode strings</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.CreateEnvironmentBlock(System.IntPtr@,System.IntPtr,System.Boolean)">
+	<summary>
+ Retrieves the environment variables for the specified user. This block can then be passed to the CreateProcessAsUser function
+ </summary>
+	<param name="lpEnvironment">When this function returns, receives a pointer to the new environment block. The environment block is an array of null-terminated Unicode strings</param>
+	<param name="hToken">Token for the user, returned from the LogonUser function. If this is a primary token, the token must have TOKEN_QUERY and TOKEN_DUPLICATE access. If the token is an impersonation token, it must have TOKEN_QUERY access</param>
+	<param name="bInherit">Specifies whether to inherit from the current process's environment</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.AllocConsole">
+	<summary>
+ Allocates a new console for the calling process
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.FreeConsole">
+	<summary>
+ Detaches the calling process from its console
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.AddFontResource(System.String)">
+	<summary>
+ Adds the font resource from the specified file to the system font table. The font can subsequently be used for text output by any application
+ </summary>
+	<param name="lpszFilename">A valid font file name</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.RemoveFontResource(System.String)">
+	<summary>
+ Removes the fonts in the specified file from the system font table
+ </summary>
+	<param name="lpszFilename">A valid font file name</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SetWindowPos(System.IntPtr,System.IntPtr,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32)">
+	<summary>
+ Changes the size, position, and Z order of a child, pop-up, or top-level window. These windows are ordered according to their appearance on the screen. The topmost window receives the highest rank and is the first window in the Z order
+ </summary>
+	<param name="hWnd">A handle to the window.</param>
+	<param name="hWndInsertAfter">A handle to the window to precede the positioned window in the Z order</param>
+	<param name="X">The new position of the left side of the window, in client coordinates</param>
+	<param name="Y">The new position of the top of the window, in client coordinates</param>
+	<param name="cx">The new width of the window, in pixels</param>
+	<param name="cy">The new height of the window, in pixels</param>
+	<param name="uFlags">The window sizing and positioning flags</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetWindowRect(System.IntPtr,Cjwdev.WindowsApi.ApiDefinitions.RECT@)">
+	<summary>
+ Retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen
+ </summary>
+	<param name="hWnd">A handle to the window</param>
+	<param name="lpRect">A pointer to a RECT structure that receives the screen coordinates of the upper-left and lower-right corners of the window</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.DeleteProfile(System.String,System.String,System.String)">
+	<summary>
+ Deletes the user profile and all user-related settings from the specified computer. The caller must have administrative privileges to delete a user's profile
+ </summary>
+	<param name="lpSidString">Pointer to a string that specifies the user SID</param>
+	<param name="lpProfilePath">Pointer to a string that specifies the profile path. If this parameter is NULL, the function obtains the path from the registry</param>
+	<param name="lpComputerName">Pointer to a string that specifies the name of the computer from which the profile is to be deleted. If this parameter is NULL, the local computer name is used</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SetComputerNameEx(Cjwdev.WindowsApi.ApiDefinitions.COMPUTER_NAME_FORMAT,System.String)">
+	<summary>
+ Sets a new NetBIOS or DNS name for the local computer. Name changes made by SetComputerNameEx do not take effect until the user restarts the computer
+ </summary>
+	<param name="NameType">The type of name to be set</param>
+	<param name="lpBuffer">The new name. The name cannot include control characters, leading or trailing spaces</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.NetRenameMachineInDomain(System.String,System.String,System.String,System.String,System.UInt32)">
+	<summary>
+ The NetRenameMachineInDomain function changes the name of a computer in a domain
+ </summary>
+	<param name="lpServer">A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is NULL, the local computer is used</param>
+	<param name="lpNewMachineName">A pointer to a constant string that specifies the new name of the computer. If specified, the local computer name is changed as well. If this parameter is NULL, the function assumes you have already called the SetComputerNameEx function</param>
+	<param name="lpAccount">A pointer to a constant string that specifies an account name to use when connecting to the domain controller. If this parameter is NULL, the caller's context is used</param>
+	<param name="lpPassword">f the lpAccount parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be NULL</param>
+	<param name="fRenameOptions">he rename options. If this parameter is NETSETUP_ACCT_CREATE, the function renames the account in the domain</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SHQueryRecycleBin(System.String,Cjwdev.WindowsApi.ApiDefinitions.SHQUERYRBINFO@)">
+	<summary>
+ Retrieves the size of the Recycle Bin and the number of items in it, for a specified drive
+ </summary>
+	<param name="pszRootPath">The address of a null-terminated string of maximum length MAX_PATH to contain the path of the root drive on which the Recycle Bin is located</param>
+	<param name="pSHQueryRBInfo">The address of a SHQUERYRBINFO structure that receives the Recycle Bin information. The cbSize member of the structure must be set to the size of the structure before calling this API</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SHEmptyRecycleBin(System.IntPtr,System.String,System.UInt32)">
+	<summary>
+ Empties the Recycle Bin on the specified drive
+ </summary>
+	<param name="hwnd">A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be NULL</param>
+	<param name="pszRootPath">The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located</param>
+	<param name="dwFlags">One or more of the following values: SHERB_NOCONFIRMATION, SHERB_NOPROGRESSUI, SHERB_NOSOUND</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetProfilesDirectory(System.Text.StringBuilder,System.UInt32@)">
+	<summary>
+ Retrieves the path to the root directory where all user profiles are stored
+ </summary>
+	<param name="lpProfilesDir">Pointer to the buffer that receives the path to the profiles directory. Set this value to NULL to determine the required size of the buffer</param>
+	<param name="lpcchSize">Specifies the size of the lpProfilesDir buffer, in TCHARs</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.EnumPwrSchemes(Cjwdev.WindowsApi.ApiDefinitions.EnumPowerSchemesProc,System.IntPtr)">
+	<summary>
+ Enumerates all power schemes. For each power scheme enumerated, the function calls a callback function with information about the power scheme
+ </summary>
+	<param name="lpfnPwrSchemesEnumProc">A pointer to a callback function to be called for each power scheme enumerated</param>
+	<param name="lParam">A user-defined value to be passed to the callback function</param>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.EnumPowerSchemesProc">
+	<summary>
+ Callback used by the EnumPwrSchemes API
+ </summary>
+	<param name="uiIndex">Power scheme index</param>
+	<param name="dwName">Size of the sName string, in bytes</param>
+	<param name="sName">Name of the power scheme</param>
+	<param name="dwDesc">Size of the sDesc string, in bytes</param>
+	<param name="sDesc">Description string</param>
+	<param name="pp">Receives the power policy</param>
+	<param name="lParam">User defined value</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SetActivePwrScheme(System.UInt32,System.IntPtr,System.IntPtr)">
+	<summary>
+ Sets the active power scheme
+ </summary>
+	<param name="uiID">he index of the power scheme to be activated</param>
+	<param name="lpGlobalPowerPolicy">A pointer to an optional GLOBAL_POWER_POLICY structure, which provides global power policy settings to be merged with the power scheme when it becomes active</param>
+	<param name="lpPowerPolicy">A pointer to an optional POWER_POLICY structure, which provides power policy settings to be merged with the power scheme when it becomes active</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetActivePwrScheme(System.UInt32@)">
+	<summary>
+ Retrieves the index of the active power scheme
+ </summary>
+	<param name="uiID">A pointer to a variable that receives the index of the active power scheme</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.FindWindowW(System.String,System.String)">
+	<summary>
+ Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search
+ </summary>
+	<param name="lpClassName">The class name or a class atom created by a previous call to the RegisterClass or RegisterClassEx function. The atom must be in the low-order word of lpClassName; the high-order word must be zero</param>
+	<param name="lpWindowName">The window name (the window's title). If this parameter is NULL, all window names match</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.FindWindowExW(System.IntPtr,System.IntPtr,System.String,System.String)">
+	<summary>
+ Retrieves a handle to a window whose class name and window name match the specified strings. The function searches child windows, beginning with the one following the specified child window. This function does not perform a case-sensitive search
+ </summary>
+	<param name="hWndParent">A handle to the parent window whose child windows are to be searched</param>
+	<param name="hWndChildAfter">A handle to a child window. The search begins with the next child window in the Z order. The child window must be a direct child window of hwndParent, not just a descendant window</param>
+	<param name="lpszClass">The class name or a class atom created by a previous call to the RegisterClass or RegisterClassEx function. The atom must be placed in the low-order word of lpszClass; the high-order word must be zero</param>
+	<param name="lpszWindow">The window name (the window's title). If this parameter is NULL, all window names match</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.DeleteService(System.IntPtr)">
+	<summary>
+ Deletes a windows service
+ </summary>
+	<param name="hService">A handle to the service to be deleted</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.StartService(System.IntPtr,System.UInt32,System.IntPtr)">
+	<summary>
+ Starts a windows service
+ </summary>
+	<param name="hService">A hanlde to the service to be started</param>
+	<param name="dwNumServiceArgs">The number of strings in the lpServiceArgVectors array. If lpServiceArgVectors is NULL, this parameter can be zero</param>
+	<param name="lpServiceArgVectors">The null-terminated strings to be passed to the ServiceMain function for the service as arguments. If there are no arguments, this parameter can be NULL</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.OpenService(System.IntPtr,System.String,System.UInt32)">
+	<summary>
+ Opens an existing service
+ </summary>
+	<param name="hSCManager">A handle to the service control manager database</param>
+	<param name="lpServiceName">The name of the service to be opened</param>
+	<param name="dwDesiredAccess">The access to the service</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.CreateService(System.IntPtr,System.String,System.String,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.String,System.String,System.IntPtr,System.String,System.String,System.String)">
+	<summary>
+ Creates a service object and adds it to the specified service control manager database
+ </summary>
+	<param name="hSCManager">A handle to the service control manager database</param>
+	<param name="lpServiceName">The name of the service to install. The maximum string length is 256 characters</param>
+	<param name="lpDisplayName">The display name to be used by user interface programs to identify the service. This string has a maximum length of 256 characters</param>
+	<param name="dwDesiredAccess">The access to the service</param>
+	<param name="dwServiceType">The service type</param>
+	<param name="dwStartType">The service start options</param>
+	<param name="dwErrorControl">The severity of the error, and action taken, if this service fails to start</param>
+	<param name="lpBinaryPathName">The fully-qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted</param>
+	<param name="lpLoadOrderGroup">The names of the load ordering group of which this service is a member. Specify NULL or an empty string if the service does not belong to a group</param>
+	<param name="lpdwTagId">A pointer to a variable that receives a tag value that is unique in the group specified in the lpLoadOrderGroup parameter. Specify NULL if you are not changing the existing tag</param>
+	<param name="lpDependencies">A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service. Specify NULL or an empty string if the service has no dependencies</param>
+	<param name="lpServiceStartName">he name of the account under which the service should run</param>
+	<param name="lpPassword">The password to the account name specified by the lpServiceStartName parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.EnumServicesStatusEx(System.IntPtr,System.UInt32,System.UInt32,System.UInt32,System.IntPtr,System.UInt32,System.UInt32@,System.UInt32@,System.IntPtr,System.String)">
+	<summary>
+ Enumerates services in the specified service control manager database. The name and status of each service are provided, 
+ along with additional data based on the specified information level
+ </summary>
+	<param name="hSCManager">A handle to the service control manager database</param>
+	<param name="InfoLevel">The service attributes that are to be returned. Use SC_ENUM_PROCESS_INFO to retrieve the name and service status information for each service in the database</param>
+	<param name="dwServiceType">The type of services to be enumerated</param>
+	<param name="dwServiceState">The state of the services to be enumerated</param>
+	<param name="lpServices">A pointer to the buffer that receives the status information. The format of this data depends on the value of the InfoLevel parameter</param>
+	<param name="cbBufSize">The size of the buffer pointed to by the lpServices parameter, in bytes</param>
+	<param name="pcbBytesNeeded">A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small</param>
+	<param name="lpServicesReturned">A pointer to a variable that receives the number of service entries returned</param>
+	<param name="lpResumeHandle">A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time the EnumServicesStatusEx function is called. On output, this value is zero if the function succeeds</param>
+	<param name="pszGroupName">The load-order group name. If this parameter is a string, the only services enumerated are those that belong to the group that has the name specified by the string. If this parameter is an empty string, only services that do not belong to any group are enumerated. If this parameter is NULL, group membership is ignored and all services are enumerated</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.OpenSCManager(System.String,System.String,System.UInt32)">
+	<summary>
+ Establishes a connection to the service control manager on the specified computer and opens the specified service control manager database
+ </summary>
+	<param name="lpMachineName">The name of the target computer. If the pointer is NULL or points to an empty string, the function connects to the service control manager on the local computer</param>
+	<param name="lpDatabaseName">The name of the service control manager database. This parameter should be set to SERVICES_ACTIVE_DATABASE. If it is NULL, the SERVICES_ACTIVE_DATABASE database is opened by default</param>
+	<param name="dwDesiredAccess">The access to the service control manager</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.CloseServiceHandle(System.IntPtr)">
+	<summary>
+ Closes a handle to a service control manager or service object
+ </summary>
+	<param name="hSCObject">A handle to the service control manager object or the service object to close. Handles to service control manager objects are returned by the OpenSCManager function, and handles to service objects are returned by either the OpenService or CreateService function</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.OpenProcess(System.UInt32,System.Boolean,System.UInt32)">
+	<summary>
+ Opens an existing local process object
+ </summary>
+	<param name="dwDesiredAccess">The access to the process object. This access right is checked against the security descriptor for the process</param>
+	<param name="bInheritHandle">If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle</param>
+	<param name="dwProcessId">The identifier of the local process to be opened</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.FlashWindowEx(Cjwdev.WindowsApi.ApiDefinitions.FLASHWINFO@)">
+	<summary>
+ Flashes a window to alert the user that it requires attention
+ </summary>
+	<param name="pfwi">A FLASHWINFO structure that specifies parameters for the flash</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.ReadProcessMemory(System.IntPtr,System.IntPtr,System.Byte[],System.UInt32,System.UInt32@)">
+	<summary>
+ Reads data from an area of memory in a specified process. The entire area to be read must be accessible or the operation fails
+ </summary>
+	<param name="hProcess">A handle to the process with memory that is being read. The handle must have PROCESS_VM_READ access to the process</param>
+	<param name="lpBaseAddress">A pointer to the base address in the specified process from which to read. Before any data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for read access, and if it is not accessible the function fails</param>
+	<param name="lpBuffer">A pointer to a buffer that receives the contents from the address space of the specified process</param>
+	<param name="nSize">The number of bytes to be read from the specified process</param>
+	<param name="lpNumberOfBytesRead">A pointer to a variable that receives the number of bytes transferred into the specified buffer. If lpNumberOfBytesRead is NULL, the parameter is ignored</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.CloseHandle(System.IntPtr)">
+	<summary>
+ Closes an open object handle
+ </summary>
+	<param name="hObject">A valid handle to an open object</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetInterfaceInfo(System.IntPtr,System.UInt32@)">
+	<summary>
+ The GetInterfaceInfo function obtains the list of the network interface adapters with IPv4 enabled on the local system
+ </summary>
+	<param name="pIfTable">A pointer to a buffer that specifies an IP_INTERFACE_INFO structure that receives the list of adapters. This buffer must be allocated by the caller</param>
+	<param name="dwOutBufLen">A pointer to a DWORD variable that specifies the size of the buffer pointed to by pIfTable parameter to receive the IP_INTERFACE_INFO structure. If this size is insufficient to hold the IPv4 interface information, GetInterfaceInfo fills in this variable with the required size, and returns an error code of ERROR_INSUFFICIENT_BUFFER</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.IpReleaseAddress(Cjwdev.WindowsApi.ApiDefinitions.IP_ADAPTER_INDEX_MAP@)">
+	<summary>
+ The IpReleaseAddress function releases an IPv4 address previously obtained through the Dynamic Host Configuration Protocol (DHCP)
+ </summary>
+	<param name="AdapterInfo">A pointer to an IP_ADAPTER_INDEX_MAP structure that specifies the adapter associated with the IPv4 address to release</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.IpRenewAddress(Cjwdev.WindowsApi.ApiDefinitions.IP_ADAPTER_INDEX_MAP@)">
+	<summary>
+ The IpRenewAddress function renews a lease on an IPv4 address previously obtained through Dynamic Host Configuration Protocol (DHCP)
+ </summary>
+	<param name="AdapterInfo">A pointer to an IP_ADAPTER_INDEX_MAP structure that specifies the adapter associated with the IP address to renew</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.FreeLibrary(System.IntPtr)">
+	<summary>
+ Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the reference count reaches zero, the module is unloaded from the address space of the calling process and the handle is no longer valid
+ </summary>
+	<param name="hLibModule">A handle to the loaded library module. The LoadLibrary, LoadLibraryEx, GetModuleHandle, or GetModuleHandleEx function returns this handle</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.LoadLibrary(System.String)">
+	<summary>
+ Loads the specified module into the address space of the calling process. The specified module may cause other modules to be loaded
+ </summary>
+	<param name="lpLibFileName">The name of the module. This can be either a library module (a .dll file) or an executable module (an .exe file). The name specified is the file name of the module and is not related to the name stored in the library module itself, as specified by the LIBRARY keyword in the module-definition (.def) file</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.LoadString(System.IntPtr,System.UInt32,System.Text.StringBuilder,System.Int32)">
+	<summary>
+ Loads a string resource from the executable file associated with a specified module, copies the string into a buffer, and appends a terminating null character
+ </summary>
+	<param name="hInstance">A handle to an instance of the module whose executable file contains the string resource. To get the handle to the application itself, call the GetModuleHandle function with NULL</param>
+	<param name="uID">The identifier of the string to be loaded</param>
+	<param name="lpBuffer">The buffer is to receive the string</param>
+	<param name="cchBufferMax">The size of the buffer, in characters. The string is truncated and null-terminated if it is longer than the number of characters specified. If this parameter is 0, then lpBuffer receives a read-only pointer to the resource itself</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetDC(System.IntPtr)">
+	<summary>
+ Gets a handle to a device context (DC) for a specified window or for the entire screen
+ </summary>
+	<param name="hWnd">A handle to the window to get the DC for - pass Nothing to get the DC for the entire screen</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.ReleaseDC(System.IntPtr,System.IntPtr)">
+	<summary>
+ Releases a device context (DC)
+ </summary>
+	<param name="hWnd">A handle to the window that the DC is for</param>
+	<param name="hDC">A handle to the DC to be released</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.NetUnjoinDomain(System.String,System.String,System.String,System.UInt32)">
+	<summary>
+ The NetUnjoinDomain function unjoins a computer from a workgroup or a domain
+ </summary>
+	<param name="lpServer">A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which the function is to execute. If this parameter is NULL, the local computer is used</param>
+	<param name="lpAccount">A pointer to a constant string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, REDMOND\user) or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is NULL, the caller's context is used</param>
+	<param name="lpPassword">If the lpAccount parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be NULL</param>
+	<param name="fUnjoinOptions">Specifies the unjoin options. If this parameter is NETSETUP_ACCT_DELETE, the account is disabled when the unjoin occurs. Note that this option does not delete the account. Currently, there are no other unjoin options defined</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.NetJoinDomain(System.String,System.String,System.String,System.String,System.String,System.UInt32)">
+	<summary>
+ The NetJoinDomain function joins a computer to a workgroup or domain
+ </summary>
+	<param name="lpServer">A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to execute the domain join operation. If this parameter is NULL, the local computer is used</param>
+	<param name="lpDomain">A pointer to a constant null-terminated character string that specifies the name of the domain or workgroup to join</param>
+	<param name="lpAccountOU">Optionally specifies the pointer to a constant null-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) for the computer account. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be NULL</param>
+	<param name="lpAccount">A pointer to a constant null-terminated character string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, REDMOND\user) or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is NULL, the caller's context is used</param>
+	<param name="lpPassword">If the lpAccount parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be NULL</param>
+	<param name="fJoinOptions">A set of bit flags defining the join options</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.ExitWindowsEx(System.UInt32,System.UInt32)">
+	<summary>
+ Logs off the interactive user, shuts down the system, or shuts down and restarts the system. It sends the WM_QUERYENDSESSION message to all applications to determine if they can be terminated
+ </summary>
+	<param name="uFlags">The shutdown type</param>
+	<param name="dwReason">The reason for initiating the shutdown. This parameter must be one of the system shutdown reason codes</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.EnumChildWindows(System.IntPtr,Cjwdev.WindowsApi.ApiDefinitions.EnumWindowsProc,System.IntPtr)">
+	<summary>
+ Enumerates the child windows that belong to the specified parent window by passing the handle to each child window, in turn, to an application-defined callback function
+ </summary>
+	<param name="hWndParent">A handle to the parent window whose child windows are to be enumerated. If this parameter is NULL, this function is equivalent to EnumWindows</param>
+	<param name="lpEnumFunc">A pointer to an application-defined callback function</param>
+	<param name="lParam">An application-defined value to be passed to the callback function</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SetParent(System.IntPtr,System.IntPtr)">
+	<summary>
+ Changes the parent window of the specified child window
+ </summary>
+	<param name="hWndChild">A handle to the child window</param>
+	<param name="hWndNewParent">A handle to the new parent window. If this parameter is NULL, the desktop window becomes the new parent window. If this parameter is HWND_MESSAGE, the child window becomes a message-only window</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SendMessage(System.IntPtr,System.UInt32,System.UInt32,System.Int32)">
+	<summary>
+ Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message
+ </summary>
+	<param name="hWnd">A handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows</param>
+	<param name="Msg">The message to be sent</param>
+	<param name="wParam">Additional message-specific information</param>
+	<param name="lParam">Additional message-specific information</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetClassLong(System.IntPtr,System.Int32)">
+	<summary>
+ Retrieves specified information about a window class on a 32 bit OS. Should also be used if the calling 
+ process is a process running on a 64 bit OS in 32 bit emulation mode. Use GetClassLongPtr for native 64 bit processes
+ </summary>
+	<param name="hWnd">A handle to the window</param>
+	<param name="nIndex">The value to be retrieved - see constants prefixed with GCL_</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetClassLongPtr(System.IntPtr,System.Int32)">
+	<summary>
+ Retrieves specified information about a window class on a 64 bit OS. If the calling 
+ process is a process running on a 64 bit OS in 32 bit emulation mode then use GetClassLong instead
+ </summary>
+	<param name="hWnd">A handle to the window</param>
+	<param name="nIndex">The value to be retrieved - see constants prefixed with GCL_</param>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions.EnumWindowsProc">
+	<summary>
+ Used by the EnumWindows and EnumChildWindows APIs to specify a callback function that should be called once for each window found
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.EnumWindows(Cjwdev.WindowsApi.ApiDefinitions.EnumWindowsProc,System.IntPtr)">
+	<summary>
+ Enumerates all top level windows and calls the specified callback once for each window found
+ </summary>
+	<param name="lpEnumFunc"></param>
+	<param name="lParam"></param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.IsWindowVisible(System.IntPtr)">
+	<summary>
+ Checks to see if a window is visible
+ </summary>
+	<param name="hWnd">A handle to the window to check the visibility of</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetWindowText(System.IntPtr,System.Text.StringBuilder,System.Int32)">
+	<summary>
+ Gets the title bar text from the specified window
+ </summary>
+	<param name="hWnd">A handle to the window to get the text from</param>
+	<param name="lpString">OUTPUT - the window text will be copied to this object</param>
+	<param name="nMaxCount">The maximimum number of characters to get from the window title and copy to the object in the lpString parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetWindowTextLength(System.IntPtr)">
+	<summary>
+ Gets the number of characters present in a window's title bar text
+ </summary>
+	<param name="hWnd">A handle to the window to get the text length from</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetWindowThreadProcessId(System.IntPtr,System.Int32@)">
+	<summary>
+ Gets the thread and process ID that created a window
+ </summary>
+	<param name="hWnd">A handle to the window to get the thread and process ID for</param>
+	<param name="lpdwProcessId">OUTPUT - The process ID will be copied to this Integer, but only if the Integer passed in is not 0</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetClassName(System.IntPtr,System.Text.StringBuilder,System.Int32)">
+	<summary>
+ Gets the class name for a specified window
+ </summary>
+	<param name="hWnd">A handle to the window to get the class name of</param>
+	<param name="lpClassName">OUTPUT - The class name will be stored in this object</param>
+	<param name="nMaxCount">The maximum number of characters to copy to the object in the lpClassName parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetDiskFreeSpaceEx(System.String,System.UInt64@,System.UInt64@,System.UInt64@)">
+	<summary>
+ Gets the total size of a disk, the amount of free space available to the current user, and the amount of total free space
+ </summary>
+	<param name="lpDirectoryName">The disk to get the total/free space from - can be a UNC path</param>
+	<param name="lpFreeBytesAvailable">OUTPUT - amount of free space available to current user is returned in this parameter</param>
+	<param name="lpTotalNumberOfBytes">OUTPUT - total size is returned in this parameter</param>
+	<param name="lpTotalNumberOfFreeBytes">OUTPUT - total amount of free space is returned in this parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.WNetCancelConnection(System.String,System.UInt32,System.Boolean)">
+	<summary>
+ Deletes a connection to a network resource
+ </summary>
+	<param name="lpName">The name of the connection to delete (e.g drive letter)</param>
+	<param name="dwFlags">If this is a persistent connection set to CONNECT_UPDATE_PROFILE to prevent from being mapped again at next logon</param>
+	<param name="fForce">Delete connection even if files from this resource are still open</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.WNetAddConnection2(Cjwdev.WindowsApi.ApiDefinitions.NETRESOURCE@,System.String,System.String,System.UInt32)">
+	<summary>
+ Creates a connection to a network resource
+ </summary>
+	<param name="lpNetResource">A NETRESOURCE structure that specifies information about the network resource connection</param>
+	<param name="lpPassword">The password to use for the connection - leave blank to use current user credentials</param>
+	<param name="lpUserName">The username to use for the connection - leave blank to use current user credentials</param>
+	<param name="dwFlags">Bitmask that specifies connection options. For example, whether or not to make the connection persistent</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.NetShareAdd(System.String,System.UInt32,Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_502@,System.Int32@)">
+	<summary>
+ Shares a specified object, using detailed information (incl permissions) to configure the share.
+ </summary>
+	<param name="servername">The computer to create the share on</param>
+	<param name="level">The level of information specified in the Buf parameter - set to 502 for detailed information</param>
+	<param name="buf">An instance of the SHARE_INFO_502 structure that contains the desired settings for the share</param>
+	<param name="parm_err">OUTPUT - if any parameter errors are encountered then this will show which parameter caused the error</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.InitializeSecurityDescriptor(Cjwdev.WindowsApi.ApiDefinitions.SECURITY_DESCRIPTOR@,System.UInt32)">
+	<summary>
+ The InitializeSecurityDescriptor function initializes a new security descriptor
+ </summary>
+	<param name="pSecurityDescriptor">A pointer to a SECURITY_DESCRIPTOR structure that the function initializes</param>
+	<param name="dwRevision">The revision level to assign to the security descriptor. This parameter must be SECURITY_DESCRIPTOR_REVISION</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SetEntriesInAcl(System.Int32,Cjwdev.WindowsApi.ApiDefinitions.EXPLICIT_ACCESS@,System.IntPtr,System.IntPtr@)">
+	<summary>
+ The SetEntriesInAcl function creates a new access control list (ACL) by merging new access control or audit control information into an existing ACL structure
+ </summary>
+	<param name="cCountOfExplicitEntries">The number of EXPLICIT_ACCESS structures in the pListOfExplicitEntries array</param>
+	<param name="pListOfExplicitEntries">A pointer to an array of EXPLICIT_ACCESS structures that describe the access control information to merge into the existing ACL</param>
+	<param name="OldAcl">A pointer to the existing ACL. This parameter can be NULL, in which case, the function creates a new ACL based on the EXPLICIT_ACCESS entries</param>
+	<param name="NewAcl">A pointer to a variable that receives a pointer to the new ACL. If the function succeeds, you must call the LocalFree function to free the returned buffer</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SetSecurityDescriptorDacl(Cjwdev.WindowsApi.ApiDefinitions.SECURITY_DESCRIPTOR@,System.Boolean,System.IntPtr,System.Boolean)">
+	<summary>
+ The SetSecurityDescriptorDacl function sets information in a discretionary access control list (DACL). If a DACL is already present in the security descriptor, the DACL is replaced
+ </summary>
+	<param name="pSecurityDescriptor">A pointer to the SECURITY_DESCRIPTOR structure to which the function adds the DACL. This security descriptor must be in absolute format, meaning that its members must be pointers to other structures, rather than offsets to contiguous data</param>
+	<param name="bDaclPresent">A flag that indicates the presence of a DACL in the security descriptor. If this parameter is TRUE, the function sets the SE_DACL_PRESENT flag in the SECURITY_DESCRIPTOR_CONTROL structure and uses the values in the pDacl and bDaclDefaulted parameters. If this parameter is FALSE, the function clears the SE_DACL_PRESENT flag, and pDacl and bDaclDefaulted are ignored</param>
+	<param name="pDacl">A pointer to an ACL structure that specifies the DACL for the security descriptor. If this parameter is NULL, a NULL DACL is assigned to the security descriptor, which allows all access to the object. The DACL is referenced by, not copied into, the security descriptor</param>
+	<param name="bDaclDefaulted">A flag that indicates the source of the DACL. If this flag is TRUE, the DACL has been retrieved by some default mechanism. If FALSE, the DACL has been explicitly specified by a user. The function stores this value in the SE_DACL_DEFAULTED flag of the SECURITY_DESCRIPTOR_CONTROL structure. If this parameter is not specified, the SE_DACL_DEFAULTED flag is cleared</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.IsValidSecurityDescriptor(Cjwdev.WindowsApi.ApiDefinitions.SECURITY_DESCRIPTOR@)">
+	<summary>
+ Determines if a security descriptor structure is valid
+ </summary>
+	<param name="pSecurityDescriptor">A pointer to the security descriptor to validate</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.SystemParametersInfoW(System.UInt32,System.UInt32,System.IntPtr,System.UInt32)">
+	<summary>
+ Retrieves or sets the value of one of the system-wide parameters
+ </summary>
+	<param name="uiAction">The system-wide parameter to be retrieved or set</param>
+	<param name="uiParam">A parameter whose usage and format depends on the system parameter being queried or set. For more information about system-wide parameters, see the uiAction parameter. If not otherwise indicated, you must specify zero for this parameter</param>
+	<param name="pvParam">A parameter whose usage and format depends on the system parameter being queried or set. For more information about system-wide parameters, see the uiAction parameter. If not otherwise indicated, you must specify NULL for this parameter</param>
+	<param name="fWinIni">If a system parameter is being set, specifies whether the user profile is to be updated, and if so, whether the WM_SETTINGCHANGE message is to be broadcast to all top-level windows to notify them of the change</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.NetShareAdd(System.String,System.UInt32,Cjwdev.WindowsApi.ApiDefinitions.SHARE_INFO_2@,System.UInt32@)">
+	<summary>
+ Shares a specified object using basic information to configure the share. Returns NET_API_STATUS.NERR_SUCCESS if successful
+ </summary>
+	<param name="servername">The computer on which to create the share</param>
+	<param name="level">The level of information that will be passed in via the buf argument, set to 2 for basic share creation</param>
+	<param name="buf">An instance of the SHARE_INFO_2 structure which has been populated with the desired share settings</param>
+	<param name="parm_err">If an error is found with one of the previous arguments then the number of the argument will be returned in this value</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.WNetGetConnection(System.String,System.Text.StringBuilder,System.Int32@)">
+	<summary>
+ Gets the UNC path that a network drives is mapped to
+ </summary>
+	<param name="lpLocalName">The drive letter (followed by a colon) to get the UNC path for</param>
+	<param name="lpRemoteName">The UNC path will be returned in this parameter</param>
+	<param name="lpnLength">The maximum length of the lpRemoteName parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetProfileType(System.UInt32@)">
+	<summary>
+ Determines the type of Windows profile being used by the user (Local, Roaming, Temporary etc)
+ </summary>
+	<param name="pdwflags">Output parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetForegroundWindow">
+	<summary>
+ Gets the Hwnd of the currently active window
+ </summary>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.ShowWindow(System.IntPtr,System.Int32)">
+	<summary>
+ Shows or hides a specified Window
+ </summary>
+	<param name="hwnd">The Hwnd of the window to show</param>
+	<param name="nCmdShow">The command to be sent to the window</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.RegisterHotKey(System.IntPtr,System.Int32,System.UInt32,System.UInt32)">
+	<summary>
+ Registers a system wide hotkey
+ </summary>
+	<param name="hWnd">The Hwnd of the window that should receive a notification when the hotkey is pressed</param>
+	<param name="id">A unique ID for the hotkey</param>
+	<param name="fsModifiers">The keys that must be pressed when vk is pressed to trigger the hotkey</param>
+	<param name="vk">The key that must be pressed when the keys in fsModifiers are pressed to trigger the hotkey</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.UnregisterHotKey(System.IntPtr,System.Int32)">
+	<summary>
+ Removes a system wide hotkey
+ </summary>
+	<param name="hWnd">The Hwnd of the window that the hotkey was registered against</param>
+	<param name="id">The ID of the hotkey to remove</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.CM_Reenumerate_DevNode(System.UInt32,System.UInt64)">
+	<summary>
+ Refreshes the specified hardware device tree (if this method is passed the root node then this is 
+ equivelant to doing Scan For Hardware Changes in device manager)
+ </summary>
+	<param name="dnDevInst"></param>
+	<param name="ulFlags"></param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.CM_Locate_DevNode(System.UInt32@,System.Int32,System.UInt64)">
+	<summary>
+ Locates a node in the hardware device tree
+ </summary>
+	<param name="PdnDevInst"></param>
+	<param name="pDeviceID"></param>
+	<param name="ulFlags"></param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.NtQueryInformationProcess(System.IntPtr,System.UInt32,Cjwdev.WindowsApi.ApiDefinitions.Process_Basic_Information@,System.Int32,System.UInt32@)">
+	<summary>
+ Retrieves information about a specific process, returns 0 if operation was successful
+ </summary>
+	<param name="handle">A handle to the process to get information for</param>
+	<param name="processinformationclass">The level of information to retrieve, 0 = basic</param>
+	<param name="ProcessInformation">OUTPUT An instance of the Basic_Process_Information class that will be populated with information</param>
+	<param name="ProcessInformationLength">The size of the ProcessInformation parameter</param>
+	<param name="ReturnLength">OUTPUT The amount of data that was written to the object passed in to the ProcessInformation parameter</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.ExtractIconEx(System.String,System.Int32,System.IntPtr@,System.IntPtr@,System.UInt32)">
+	<summary>
+ Extracts an icon from a specified exe, dll or icon file. Call DestroyIcon on handles once finished.
+ </summary>
+	<param name="lpszFile">The file to extract the icon from</param>
+	<param name="nIconIndex">Specifies the zero-based index of the icon to extract. If this value is –1 and phiconLarge and phiconSmall are both NULL, the function returns the total number of icons in the specified file</param>
+	<param name="phiconLarge">Handle to the large version of the icon requested</param>
+	<param name="phiconSmall">handle to the small version of the icon requested</param>
+	<param name="nIcons">Number of icons to extract</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.DestroyIcon(System.IntPtr)">
+	<summary>
+ Destroys an icon and frees any memory the icon occupied
+ </summary>
+	<param name="hIcon">The handle to the icon to be destroyed</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.IsWow64Process(System.IntPtr,System.Boolean@)">
+	<summary>
+ Determines if a process is running on a 64 bit Operating System but in 32 bit emulation mode (WOW64)
+ </summary>
+	<param name="hProcess">A handle to the process to check</param>
+	<param name="Wow64Process">Output parameter. A boolean that will be set to True if the process is running in WOW64 mode</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetModuleHandle(System.String)">
+	<summary>
+ Gets a handle to a specified DLL
+ </summary>
+	<param name="moduleName">The module to return a handle for</param>
+</member><member name="M:Cjwdev.WindowsApi.ApiDefinitions.GetProcAddress(System.IntPtr,System.String)">
+	<summary>
+ Retrieves the address of an exported function or variable from the specified dynamic-link library (DLL)
+ </summary>
+	<param name="hModule">A handle to the DLL to look for the method in</param>
+	<param name="methodName">The method to look for</param>
+</member><member name="T:Cjwdev.WindowsApi.ApiDefinitions">
+	<summary>
+ Definitions for native Windows APIs
+ </summary>
+</member>
+</members>
+</doc>
