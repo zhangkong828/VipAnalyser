@@ -14,30 +14,30 @@ namespace VipAnalyser.Test
         {
 
             FiddlerCore.Start();
-            PhantomJS();
+            //PhantomJS();
 
-            //https://v.qq.com/x/cover/kds9l8b75jvb6y6.html
+            ////https://v.qq.com/x/cover/kds9l8b75jvb6y6.html
 
 
-            var browser = PhantomJSHelper.Instance;
+            //var browser = PhantomJSHelper.Instance;
 
             
-            //web.GoToUrl("https://www.baidu.com/");
-            //var mainHandle = web.GetCurrentWindowHandle();
+            ////web.GoToUrl("https://www.baidu.com/");
+            ////var mainHandle = web.GetCurrentWindowHandle();
 
 
-            var openJs = "window.open('https://v.qq.com/x/cover/kds9l8b75jvb6y6.html');";
-            browser.ExecuteScript(openJs);
+            //var openJs = "window.open('https://v.qq.com/x/cover/kds9l8b75jvb6y6.html');";
+            //browser.ExecuteScript(openJs);
 
-            Thread.Sleep(1000 * 10);
-            foreach (var item in browser.GetWindowHandles())
-            {
-                var tab = browser.GoToWindow(item);
-                Console.WriteLine(tab.Title);
+            //Thread.Sleep(1000 * 10);
+            //foreach (var item in browser.GetWindowHandles())
+            //{
+            //    var tab = browser.GoToWindow(item);
+            //    Console.WriteLine(tab.Title);
 
 
-            }
-            browser.Close();
+            //}
+            //browser.Close();
             Console.ReadKey();
         }
 

@@ -44,11 +44,12 @@ namespace VipAnalyser.Test
 
         private static void FiddlerApplication_BeforeResponse(Fiddler.Session oSession)
         {
-            Console.WriteLine(oSession.fullUrl);
-            if (oSession.fullUrl.Contains("getvinfo"))
+           
+            if (oSession.fullUrl.Contains("qq.com"))
             {
-                var body = oSession.ResponseBody;
-                Console.WriteLine(oSession.GetResponseBodyAsString());
+                Console.WriteLine(oSession.fullUrl);
+                //var body = oSession.ResponseBody;
+                //Console.WriteLine(oSession.GetResponseBodyAsString());
             }
 
         }
