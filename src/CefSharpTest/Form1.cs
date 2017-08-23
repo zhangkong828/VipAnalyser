@@ -18,7 +18,7 @@ namespace CefSharpTest
         {
             InitializeComponent();
             InitializeChromium();
-            
+
         }
 
 
@@ -27,8 +27,11 @@ namespace CefSharpTest
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();
-            // Initialize cef with the provided settings
+            settings.Locale = "zh-CN";
+            settings.CachePath = "Cache";
+            settings.CefCommandLineArgs.Add("ppapi-flash-path", @"Plugins\pepflashplayer32_26_0_0_151.dll");
             Cef.Initialize(settings);
+
             // Create a browser component
             chromeBrowser = new ChromiumWebBrowser("https://v.qq.com/x/cover/yoz60y87rdgl1vp/e0024dxa4jv.html");
             // Add it to the form and fill it to the form window.
