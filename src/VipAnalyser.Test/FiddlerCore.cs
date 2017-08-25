@@ -45,7 +45,7 @@ namespace VipAnalyser.Test
         private static void FiddlerApplication_BeforeResponse(Fiddler.Session oSession)
         {
            
-            if (oSession.fullUrl.Contains("qq.com"))
+            if (oSession.fullUrl.Contains("getvinfo"))
             {
                 Console.WriteLine(oSession.fullUrl);
                 //var body = oSession.ResponseBody;

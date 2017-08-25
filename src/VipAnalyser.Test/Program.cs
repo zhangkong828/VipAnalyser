@@ -13,8 +13,10 @@ namespace VipAnalyser.Test
         static void Main(string[] args)
         {
 
-            FiddlerCore.Start();
-            //PhantomJS();
+            // FiddlerCore.Start();
+
+
+            PhantomJS();
 
             ////https://v.qq.com/x/cover/kds9l8b75jvb6y6.html
 
@@ -78,13 +80,13 @@ namespace VipAnalyser.Test
             //登录方式：账号密码登录
             quick_frame.FindElement(By.Id("switcher_plogin")).Click();
             //登录
-            quick_frame.FindElement(By.Id("u")).SendKeys("");
-            quick_frame.FindElement(By.Id("p")).SendKeys("");
+            quick_frame.FindElement(By.Id("u")).SendKeys("602488225");
+            quick_frame.FindElement(By.Id("p")).SendKeys("qqoppzk");
             quick_frame.FindElement(By.Id("login_button")).Click();
             //回到 parent window
             var main = quick_frame.SwitchTo().DefaultContent();
-            // pageSource = main.PageSource;
-            // pageSource = web.GetPageSource();
+             pageSource = main.PageSource;
+            
             //等待页面刷新
             if (!web.WaitForInvisibilityOfElementLocated(By.ClassName("login_win_type"), 10))
             {
