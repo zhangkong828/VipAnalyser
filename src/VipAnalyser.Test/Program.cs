@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using VipAnalyser.ClassCommon;
 
 namespace VipAnalyser.Test
 {
@@ -12,7 +13,7 @@ namespace VipAnalyser.Test
     {
         static void Main(string[] args)
         {
-
+            //Test();
             // FiddlerCore.Start();
 
 
@@ -23,7 +24,7 @@ namespace VipAnalyser.Test
 
             //var browser = PhantomJSHelper.Instance;
 
-            
+
             ////web.GoToUrl("https://www.baidu.com/");
             ////var mainHandle = web.GetCurrentWindowHandle();
 
@@ -80,13 +81,13 @@ namespace VipAnalyser.Test
             //登录方式：账号密码登录
             quick_frame.FindElement(By.Id("switcher_plogin")).Click();
             //登录
-            quick_frame.FindElement(By.Id("u")).SendKeys("602488225");
-            quick_frame.FindElement(By.Id("p")).SendKeys("qqoppzk");
+            quick_frame.FindElement(By.Id("u")).SendKeys("");
+            quick_frame.FindElement(By.Id("p")).SendKeys("");
             quick_frame.FindElement(By.Id("login_button")).Click();
             //回到 parent window
             var main = quick_frame.SwitchTo().DefaultContent();
-             pageSource = main.PageSource;
-            
+            pageSource = main.PageSource;
+
             //等待页面刷新
             if (!web.WaitForInvisibilityOfElementLocated(By.ClassName("login_win_type"), 10))
             {
@@ -107,6 +108,10 @@ namespace VipAnalyser.Test
             Console.WriteLine("登录后cookie");
             ConsoleCookie(cookie2);
             Console.WriteLine("------------------------------------------");
+
+            var cookieStr = web.GetAllCookiesString();
+            Console.WriteLine(cookieStr);
+            Test(cookieStr);
         }
 
         static void ConsoleCookie(Dictionary<string, string> dic)
@@ -116,5 +121,18 @@ namespace VipAnalyser.Test
                 Console.WriteLine("{0}:{1}", item.Key, item.Value);
             }
         }
+
+
+        static void Test(string cookie)
+        {
+            var vid = "q0181hpdvo5";
+
+            var info_api = $"http://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform=11&defnpayver=1&vid={vid}";
+            var info = HttpHelper.Get(info_api, cookie);
+            //"QZOutputJson={\"em\":61,\"exem\":1,\"ip\":\"222.128.117.100\",\"msg\":\"vid is wrong\",\"s\":\"f\"};"
+            //"QZOutputJson={\"em\":80,\"exem\":10,\"ip\":\"222.128.117.100\",\"msg\":\"ip-copy limit\",\"s\":\"f\",\"exinfo\":\"中国-北京市--联通\"};"
+
+        }
+
     }
 }

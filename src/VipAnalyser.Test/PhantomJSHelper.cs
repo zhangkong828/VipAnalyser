@@ -366,6 +366,17 @@ namespace VipAnalyser.Test
             }
             return cookies;
         }
+        public string GetAllCookiesString()
+        {
+            var list = new List<string>();
+            var allCookies = _webDriver.Manage().Cookies.AllCookies;
+            foreach (var cookie in allCookies)
+            {
+                list.Add(string.Format("{0}={1}", cookie.Name, cookie.Value));
+            }
+            return string.Join(";", list);
+        }
+
         public string GetCookieValue(string name)
         {
             var cookie = _webDriver.Manage().Cookies.GetCookieNamed(name);

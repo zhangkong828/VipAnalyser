@@ -76,6 +76,12 @@
   <ItemGroup>
     <Content Include="getvinfo.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VipAnalyser.ClassCommon\VipAnalyser.ClassCommon.csproj">
+      <Project>{ca01bee0-46c3-4962-a25e-42b3021220c7}</Project>
+      <Name>VipAnalyser.ClassCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Selenium.PhantomJS.WebDriver.2.1.1\build\Selenium.PhantomJS.WebDriver.targets" Condition="Exists('..\packages\Selenium.PhantomJS.WebDriver.2.1.1\build\Selenium.PhantomJS.WebDriver.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
