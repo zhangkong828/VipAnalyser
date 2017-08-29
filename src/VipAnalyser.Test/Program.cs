@@ -53,7 +53,7 @@ namespace VipAnalyser.Test
         }
 
 
-        static void PhantomJS()
+        static Dictionary<string, string> PhantomJS()
         {
             var web = PhantomJSHelper.Instance;
             var pageSource = string.Empty;
@@ -67,7 +67,7 @@ namespace VipAnalyser.Test
             //等待 登录弹窗
             if (!web.WaitForElementExists(By.Id("login_win_type"), 10))
             {
-                return;
+                return null;
             }
             //选择qq登录
             web.FindElementBy(By.ClassName("btn_qq")).Click();
@@ -75,7 +75,7 @@ namespace VipAnalyser.Test
             if (!web.WaitForElementExists(By.Id("_login_frame_quick_"), 10))
             {
                 //没有登录窗，说明已经登录了
-                return;
+                return null;
             }
             var quick_frame = web.Frame("_login_frame_quick_");
             //登录方式：账号密码登录
@@ -89,10 +89,11 @@ namespace VipAnalyser.Test
             pageSource = main.PageSource;
 
             //等待页面刷新
-            if (!web.WaitForInvisibilityOfElementLocated(By.ClassName("login_win_type"), 10))
+            //if (!web.WaitForInvisibilityOfElementLocated(By.ClassName("login_win_type"), 10))
+            if (web.WaitFor(new Func<IWebDriver, bool>(x => x.FindElement(By.ClassName("__nickname")).Text.Length > 0), 10))
             {
                 //登录窗没有消失，要么账号密码错误，要么需要验证
-                return;
+                return null;
             }
             Console.WriteLine("------------------------------------------");
             Console.WriteLine("登录成功");
@@ -111,7 +112,9 @@ namespace VipAnalyser.Test
 
             var cookieStr = web.GetAllCookiesString();
             Console.WriteLine(cookieStr);
-            Test(cookieStr);
+
+            return cookie2;
+
         }
 
         static void ConsoleCookie(Dictionary<string, string> dic)
@@ -120,18 +123,6 @@ namespace VipAnalyser.Test
             {
                 Console.WriteLine("{0}:{1}", item.Key, item.Value);
             }
-        }
-
-
-        static void Test(string cookie)
-        {
-            var vid = "q0181hpdvo5";
-
-            var info_api = $"http://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform=11&defnpayver=1&vid={vid}";
-            var info = HttpHelper.Get(info_api, cookie);
-            //"QZOutputJson={\"em\":61,\"exem\":1,\"ip\":\"222.128.117.100\",\"msg\":\"vid is wrong\",\"s\":\"f\"};"
-            //"QZOutputJson={\"em\":80,\"exem\":10,\"ip\":\"222.128.117.100\",\"msg\":\"ip-copy limit\",\"s\":\"f\",\"exinfo\":\"中国-北京市--联通\"};"
-
         }
 
     }
