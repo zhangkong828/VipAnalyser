@@ -89,8 +89,8 @@ namespace VipAnalyser.Test
             pageSource = main.PageSource;
 
             //等待页面刷新
-            //if (!web.WaitForInvisibilityOfElementLocated(By.ClassName("login_win_type"), 10))
-            if (web.WaitFor(new Func<IWebDriver, bool>(x => x.FindElement(By.ClassName("__nickname")).Text.Length > 0), 10))
+            if (!web.WaitForInvisibilityOfElementLocated(By.ClassName("login_win_type"), 10))
+            //if (main.WaitFor(new Func<IWebDriver, bool>(x => x.FindElement(By.ClassName("__nickname")).Text.Length > 0), 10))
             {
                 //登录窗没有消失，要么账号密码错误，要么需要验证
                 return null;
