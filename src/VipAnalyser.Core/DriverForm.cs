@@ -54,16 +54,22 @@ namespace VipAnalyser.Core
         {
             InitializeComponent();
 
-            //启动时设置不显示窗口
-            this.ShowInTaskbar = false;
-            this.WindowState = FormWindowState.Minimized;
-
-            //设置不在Alt+tab键中显示
-            FormHelper.HideTabAltMenu(this.Handle);
-
             _isShowForm = isShow;
+            if (!isShow)
+            {
+                //启动时设置不显示窗口
+                this.ShowInTaskbar = false;
+                this.WindowState = FormWindowState.Minimized;
+
+                //设置不在Alt+tab键中显示
+                FormHelper.HideTabAltMenu(this.Handle);
+            }
+
             _excuteRecord = record;
             _browser = new ChromiumWebBrowser("about:blank");
+
+            this.Controls.Add(_browser);
+            _browser.Dock = DockStyle.Fill;
 
             this.IsDispose = false;
         }

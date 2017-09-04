@@ -3,14 +3,10 @@ using CefSharp.WinForms;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -47,7 +43,7 @@ namespace VipAnalyser.Core
 
         private List<DriverForm> DriverForms = new List<DriverForm>();
 
-        static int _processId = Process.GetCurrentProcess().Id;
+        static int _processId = System.Diagnostics.Process.GetCurrentProcess().Id;
 
         /// <summary>
         /// 标记是否关闭程序
@@ -83,7 +79,7 @@ namespace VipAnalyser.Core
         {
             CefSettings settings = new CefSettings();
             settings.Locale = "zh-CN";
-            settings.CachePath = "Cache";
+            settings.CachePath = @"Chromium\Cache";
             settings.CefCommandLineArgs.Add("ppapi-flash-path", @"Plugins\pepflashplayer32_26_0_0_151.dll");
             Cef.Initialize(settings);
 
@@ -97,7 +93,7 @@ namespace VipAnalyser.Core
             try
             {
                 //使用这个避免程序崩溃无法关闭
-                this.Text = Process.GetCurrentProcess().ProcessName;
+                this.Text = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
 
                 //得到端口号
                 string[] CmdArgs = Environment.GetCommandLineArgs();
@@ -139,6 +135,7 @@ namespace VipAnalyser.Core
         /// </summary>
         void StartLoginMonitor()
         {
+            ExcuteRecord("开启登录监测");
             Task.Run(() =>
             {
                 Thread.Sleep(1000 * 5);
@@ -473,6 +470,7 @@ namespace VipAnalyser.Core
                 foreach (var form in DriverForms)
                     form.Close();
             }
+            Cef.Shutdown();
         }
 
         /// <summary>

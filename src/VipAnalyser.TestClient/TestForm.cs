@@ -101,8 +101,6 @@ namespace VipAnalyser.TestClient
         {
             try
             {
-                var pipeName = cmb_Program.Text + ".0";
-
                 var stopkey = Guid.NewGuid().ToString();
                 txt_stopkey.Text = stopkey;
                 rtxt_Result.Text = string.Empty;
@@ -116,7 +114,7 @@ namespace VipAnalyser.TestClient
                         rtxt_Param.Text,
                         int.Parse(numeric_Timeout.Value.ToString()),
                         stopkey,
-                        6666);
+                        Convert.ToInt32(txtAddress.Text));
                 }
                 else
                 {
@@ -150,6 +148,20 @@ namespace VipAnalyser.TestClient
             }
         }
 
-       
+        private void radio_local_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radio_local.Checked)
+            {
+                txtAddress.Text = "6666";
+            }
+        }
+
+        private void radio_remote_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radio_remote.Checked)
+            {
+                txtAddress.Text = "127.0.0.1:11234";
+            }
+        }
     }
 }

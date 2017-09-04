@@ -37,13 +37,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.rtxt_Result = new System.Windows.Forms.RichTextBox();
-            this.cmb_Program = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txt_stopkey = new System.Windows.Forms.TextBox();
             this.lb_time = new System.Windows.Forms.Label();
             this.radio_local = new System.Windows.Forms.RadioButton();
             this.radio_remote = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtAddress = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_Timeout)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,17 +62,7 @@
             // 
             this.cmb_Type.FormattingEnabled = true;
             this.cmb_Type.Items.AddRange(new object[] {
-            "GetVersion",
-            "FindVehicle",
-            "CarRenewal",
-            "QuotePrice",
-            "SetReqKeyVal",
-            "FindReconciliationInfo",
-            "GetCarInfos",
-            "UpdateConfigInfo",
-            "ReStartService",
-            "GetVehiclesByName",
-            "GetVehiclesByNameStep2"});
+            "Decode"});
             this.cmb_Type.Location = new System.Drawing.Point(77, 70);
             this.cmb_Type.Name = "cmb_Type";
             this.cmb_Type.Size = new System.Drawing.Size(351, 20);
@@ -95,7 +85,7 @@
             this.numeric_Timeout.Size = new System.Drawing.Size(351, 21);
             this.numeric_Timeout.TabIndex = 3;
             this.numeric_Timeout.Value = new decimal(new int[] {
-            600,
+            60,
             0,
             0,
             0});
@@ -114,9 +104,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 70);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 12);
+            this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 4;
-            this.label2.Text = "操作类型:";
+            this.label2.Text = "执行方法";
             // 
             // rtxt_Param
             // 
@@ -160,35 +150,6 @@
             this.rtxt_Result.TabIndex = 8;
             this.rtxt_Result.Text = "";
             // 
-            // cmb_Program
-            // 
-            this.cmb_Program.FormattingEnabled = true;
-            this.cmb_Program.Items.AddRange(new object[] {
-            "BiHu.BaoXian.Artificial.RB.JS.vshost",
-            "BiHu.BaoXian.Artificial.RB.JS",
-            "BiHu.BaoXian.Artificial.SuZhouZhuanDai.RB.vshost",
-            "BiHu.BaoXian.Artificial.SuZhouZhuanDai.RB",
-            "BiHu.BaoXian.Artificial.ShanDongCheShang.RB.vshost",
-            "BiHu.BaoXian.Artificial.ShanDongCheShang.RB",
-            "BiHu.BaoXian.Artificial.BeiJingCheShang.RB.vshost",
-            "BiHu.BaoXian.Artificial.BeiJingCheShang.RB",
-            "BiHu.BaoXian.Artificial.RB",
-            "BiHu.BaoXian.Artificial.RB.vshost",
-            "BiHu.BaoXian.Artificial.RB.TJ",
-            "BiHu.BaoXian.Artificial.RB.TJ.vshost",
-            "BiHu.BaoXian.Artificial.TPY",
-            "BiHu.BaoXian.Artificial.TPY.vshost",
-            "BiHu.BaoXian.Artificial.PA",
-            "BiHu.BaoXian.Artificial.PA.vshost",
-            "BiHu.BaoXian.Artificial.GSC",
-            "BiHu.BaoXian.Artificial.GSC.vshost",
-            "BiHu.BaoXian.Artificial.ZHLH",
-            "BiHu.BaoXian.Artificial.ZHLH.vshost"});
-            this.cmb_Program.Location = new System.Drawing.Point(77, 44);
-            this.cmb_Program.Name = "cmb_Program";
-            this.cmb_Program.Size = new System.Drawing.Size(351, 20);
-            this.cmb_Program.TabIndex = 9;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -196,7 +157,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 12);
             this.label4.TabIndex = 10;
-            this.label4.Text = "执行程序:";
+            this.label4.Text = "调用地址:";
             // 
             // txt_stopkey
             // 
@@ -227,6 +188,7 @@
             this.radio_local.TabStop = true;
             this.radio_local.Text = "本地调试";
             this.radio_local.UseVisualStyleBackColor = true;
+            this.radio_local.CheckedChanged += new System.EventHandler(this.radio_local_CheckedChanged);
             // 
             // radio_remote
             // 
@@ -237,6 +199,7 @@
             this.radio_remote.TabIndex = 14;
             this.radio_remote.Text = "远程模拟";
             this.radio_remote.UseVisualStyleBackColor = true;
+            this.radio_remote.CheckedChanged += new System.EventHandler(this.radio_remote_CheckedChanged);
             // 
             // label5
             // 
@@ -247,18 +210,26 @@
             this.label5.TabIndex = 15;
             this.label5.Text = "调用方式:";
             // 
+            // txtAddress
+            // 
+            this.txtAddress.Location = new System.Drawing.Point(78, 44);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(350, 21);
+            this.txtAddress.TabIndex = 16;
+            this.txtAddress.Text = "6666";
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(929, 623);
+            this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.radio_remote);
             this.Controls.Add(this.radio_local);
             this.Controls.Add(this.lb_time);
             this.Controls.Add(this.txt_stopkey);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.cmb_Program);
             this.Controls.Add(this.rtxt_Result);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.rtxt_Param);
@@ -290,12 +261,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox rtxt_Result;
-        private System.Windows.Forms.ComboBox cmb_Program;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txt_stopkey;
         private System.Windows.Forms.Label lb_time;
         private System.Windows.Forms.RadioButton radio_local;
         private System.Windows.Forms.RadioButton radio_remote;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtAddress;
     }
 }

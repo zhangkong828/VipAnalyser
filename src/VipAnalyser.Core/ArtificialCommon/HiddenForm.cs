@@ -12,7 +12,7 @@ namespace VipAnalyser.Core
 {
     class HiddenForm
     {
-        static int _processId = Process.GetCurrentProcess().Id;
+        static int _processId = System.Diagnostics.Process.GetCurrentProcess().Id;
 
         [DllImport("user32.dll")]
         public static extern int EnumWindows(EnumWindowsProc ewp, int lParam);
