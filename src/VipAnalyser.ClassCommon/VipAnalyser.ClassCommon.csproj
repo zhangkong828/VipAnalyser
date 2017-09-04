@@ -30,8 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BasicFormatsForCore, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FiddlerCore2.1.0.0\lib\net40\BasicFormatsForCore.dll</HintPath>
+    </Reference>
+    <Reference Include="BCMakeCert, Version=2.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FiddlerCore2.1.0.0\lib\net40\BCMakeCert.dll</HintPath>
+    </Reference>
+    <Reference Include="CertMaker, Version=4.5.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FiddlerCore2.1.0.0\lib\net40\CertMaker.dll</HintPath>
+    </Reference>
     <Reference Include="Cjwdev.WindowsApi">
       <HintPath>..\Lib\Cjwdev.WindowsApi.dll</HintPath>
+    </Reference>
+    <Reference Include="FiddlerCore4, Version=4.6.2.0, Culture=neutral, PublicKeyToken=67cb91587178ac5a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FiddlerCore2.1.0.0\lib\net40\FiddlerCore4.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -55,6 +67,7 @@
     <Compile Include="ArtificialModels\ArtificialParamModel.cs" />
     <Compile Include="ArtificialModels\ArtificialResultModel.cs" />
     <Compile Include="CommonCla.cs" />
+    <Compile Include="FiddlerCoreHelper.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\BaseRequest.cs" />
@@ -66,6 +79,9 @@
     <Compile Include="SocketAccess.cs" />
     <Compile Include="SocketHelper.cs" />
     <Compile Include="XmlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

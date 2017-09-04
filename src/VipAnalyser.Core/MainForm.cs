@@ -304,7 +304,7 @@ namespace VipAnalyser.Core
                     int times = 10;
                     while (times > 0)
                     {
-                        if (newform.IsDispose)
+                        if (newform._browser != null)
                             break;
 
                         Thread.Sleep(1000);
