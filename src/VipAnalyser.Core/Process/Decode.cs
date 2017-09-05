@@ -21,7 +21,7 @@ namespace VipAnalyser.Core.Process
 
         public void Begin()
         {
-            _form._browser.Load("https://www.cnblogs.com/");
+            _form._browser.Load("https://v.qq.com/x/cover/kds9l8b75jvb6y6.html");
             base.SetResult("ok");
         }
 

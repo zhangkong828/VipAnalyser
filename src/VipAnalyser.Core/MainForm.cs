@@ -92,6 +92,9 @@ namespace VipAnalyser.Core
         {
             try
             {
+                //开启请求监控
+                StartRequestMonitor();
+
                 //使用这个避免程序崩溃无法关闭
                 this.Text = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
 
@@ -128,7 +131,18 @@ namespace VipAnalyser.Core
             }
         }
 
-
+        /// <summary>
+        /// 开启请求监控
+        /// </summary>
+        void StartRequestMonitor()
+        {
+            var texts = new string[] { "vv.video.qq.com/getvinfo" };
+            FiddlerCoreHelper.Start(6667, texts, new Action<string, string>((url, body) =>
+            {
+                ExcuteRecord(url);
+                ExcuteRecord(body);
+            }));
+        }
 
         /// <summary>
         /// 开启登录监测
@@ -471,6 +485,8 @@ namespace VipAnalyser.Core
                     form.Close();
             }
             Cef.Shutdown();
+
+            FiddlerCoreHelper.Close();
         }
 
         /// <summary>
