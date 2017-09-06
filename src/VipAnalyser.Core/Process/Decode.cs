@@ -32,7 +32,17 @@ namespace VipAnalyser.Core.Process
 
         private void ProcessResult(byte[] bytes)
         {
-            var result = Encoding.UTF8.GetString(bytes);
+            var xml = Encoding.UTF8.GetString(bytes);
+            VQQXmlModel qqXmlModel = null;
+            try
+            {
+                qqXmlModel= XmlHelper.XmlDeserialize<VQQXmlModel>(xml, Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+                base.RecordLog(ex.Message);
+            }
+            var result = JsonConvert.SerializeObject(qqXmlModel);
             base.SetResult(result);
         }
 

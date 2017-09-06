@@ -74,6 +74,7 @@
     <Compile Include="Models\BaseResponse.cs" />
     <Compile Include="Models\VideoDecodeRequest.cs" />
     <Compile Include="Models\VideoDecodeResponse.cs" />
+    <Compile Include="Models\VQQXmlModel.cs" />
     <Compile Include="ProcessHelp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocketAccess.cs" />

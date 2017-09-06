@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-namespace VipAnalyser.Test
+namespace VipAnalyser.ClassCommon.Models
 {
-    public class VInfo
+    [XmlRoot(ElementName = "root")]
+    public class VQQXmlModel
     {
         public string dltype { get; set; }
 
@@ -36,11 +38,12 @@ namespace VipAnalyser.Test
     {
         public string cnt { get; set; }
 
-        public fi fi { get; set; }
+        [XmlElement("fi")]
+        public List<fi> fi { get; set; }
     }
     public class fi
     {
-        public int id { get; set; }
+        public string id { get; set; }
 
         public string name { get; set; }
 
@@ -54,7 +57,7 @@ namespace VipAnalyser.Test
 
         public string drm { get; set; }
 
-        public int video { get; set; }
+        public string video { get; set; }
 
         public string fs { get; set; }
 
@@ -72,11 +75,11 @@ namespace VipAnalyser.Test
     }
     public class vi
     {
-        public string @base { get; set; }
-
         public string br { get; set; }
 
         public string ch { get; set; }
+
+        public cl cl { get; set; }
 
         public string ct { get; set; }
 
@@ -88,7 +91,7 @@ namespace VipAnalyser.Test
 
         public string enc { get; set; }
 
-        public string fc { get; set; }
+        public string fclip { get; set; }
 
         public string fmd5 { get; set; }
 
@@ -100,15 +103,15 @@ namespace VipAnalyser.Test
 
         public string fst { get; set; }
 
+        public string fvkey { get; set; }
+
         public string head { get; set; }
 
         public string hevc { get; set; }
 
-        public string hfs { get; set; }
-
         public string iflag { get; set; }
 
-        public string keyid { get; set; }
+        public string level { get; set; }
 
         public string lnk { get; set; }
 
@@ -120,11 +123,13 @@ namespace VipAnalyser.Test
 
         public string share { get; set; }
 
+        public string sp { get; set; }
+
         public string st { get; set; }
 
         public string tail { get; set; }
 
-        public int targetid { get; set; }
+        public string targetid { get; set; }
 
         public string td { get; set; }
 
@@ -138,7 +143,7 @@ namespace VipAnalyser.Test
 
         public string vid { get; set; }
 
-        public int videotype { get; set; }
+        public string videotype { get; set; }
 
         public string vr { get; set; }
 
@@ -148,13 +153,33 @@ namespace VipAnalyser.Test
 
         public string wh { get; set; }
 
-        public wl wl { get; set; }
+        public string wl { get; set; }
+    }
+    public class cl
+    {
+        public string fc { get; set; }
+
+        [XmlElement("ci")]
+        public List<ci> ci { get; set; }
+    }
+    public class ci
+    {
+        public string idx { get; set; }
+
+        public string cs { get; set; }
+
+        public string cd { get; set; }
+
+        public string cmd5 { get; set; }
+
+        public string keyid { get; set; }
     }
     public class pl
     {
         public string cnt { get; set; }
 
-        public pd pd { get; set; }
+        [XmlElement("pd")]
+        public List<pd> pd { get; set; }
     }
     public class pd
     {
@@ -176,7 +201,8 @@ namespace VipAnalyser.Test
     }
     public class ul
     {
-        public ui ui { get; set; }
+        [XmlElement("ui")]
+        public List<ui> ui { get; set; }
     }
     public class ui
     {
@@ -187,64 +213,6 @@ namespace VipAnalyser.Test
         public string dtc { get; set; }
 
         public string dt { get; set; }
-
-        public hls hls { get; set; }
-    }
-    public class hls
-    {
-        public string et { get; set; }
-
-        public string fbw { get; set; }
-
-        public string ftype { get; set; }
-
-        public string hk { get; set; }
-
-        public pnl pnl { get; set; }
-
-        public string st { get; set; }
-
-        public string stype { get; set; }
-
-        public string pname { get; set; }
-
-        public string pt { get; set; }
-    }
-    public class pnl
-    {
-        public pi pi { get; set; }
-    }
-    public class pi
-    {
-        public string bw { get; set; }
-
-        public string fc { get; set; }
-
-        public string fn { get; set; }
-    }
-    public class wl
-    {
-        public wi wi { get; set; }
-    }
-    public class wi
-    {
-        public int id { get; set; }
-
-        public string x { get; set; }
-
-        public string y { get; set; }
-
-        public string w { get; set; }
-
-        public string h { get; set; }
-
-        public string a { get; set; }
-
-        public string md5 { get; set; }
-
-        public string url { get; set; }
-
-        public string surl { get; set; }
     }
 
 }

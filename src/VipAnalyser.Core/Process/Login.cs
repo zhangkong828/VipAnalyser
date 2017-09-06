@@ -15,7 +15,7 @@ namespace VipAnalyser.Core.Process
 
         public void Begin()
         {
-            _form._browser.Load("https://www.baidu.com/");
+            _form._browser.Load("http://v.qq.com/u/history/");
            
         }
 
