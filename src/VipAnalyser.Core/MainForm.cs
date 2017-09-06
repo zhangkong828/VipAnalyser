@@ -92,8 +92,6 @@ namespace VipAnalyser.Core
         {
             try
             {
-                //开启请求监控
-                StartRequestMonitor();
 
                 //使用这个避免程序崩溃无法关闭
                 this.Text = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
@@ -486,7 +484,7 @@ namespace VipAnalyser.Core
             }
             Cef.Shutdown();
 
-            FiddlerCoreHelper.Close();
+            //FiddlerCoreHelper.Close();
         }
 
         /// <summary>

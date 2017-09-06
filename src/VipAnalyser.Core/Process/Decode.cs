@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VipAnalyser.ClassCommon;
 using VipAnalyser.ClassCommon.Models;
+using VipAnalyser.Core.Handler;
 
 namespace VipAnalyser.Core.Process
 {
@@ -21,9 +22,18 @@ namespace VipAnalyser.Core.Process
 
         public void Begin()
         {
-            _form._browser.RequestHandler.OnResourceResponse()
+            _form._browser.RequestHandler = new CustomRequestHandler("vv.video.qq.com/getvinfo", new Action<byte[]>(x =>
+            {
+                ProcessResult(x);
+            }));
             _form._browser.Load("https://v.qq.com/x/cover/kds9l8b75jvb6y6.html");
-            base.SetResult("ok");
+
+        }
+
+        private void ProcessResult(byte[] bytes)
+        {
+            var result = Encoding.UTF8.GetString(bytes);
+            base.SetResult(result);
         }
 
         public void End()
