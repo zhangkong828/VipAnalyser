@@ -1,8 +1,11 @@
-﻿using OpenQA.Selenium;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using VipAnalyser.ClassCommon;
@@ -13,47 +16,26 @@ namespace VipAnalyser.Test
     {
         static void Main(string[] args)
         {
-            //Test();
-            // FiddlerCore.Start();
 
 
-            PhantomJS();
-
-            ////https://v.qq.com/x/cover/kds9l8b75jvb6y6.html
+            var cookie = PhantomJS();
 
 
-            //var browser = PhantomJSHelper.Instance;
+            ConsoleWrite("开始解析");
+            ConsoleWrite("https://v.qq.com/x/cover/kds9l8b75jvb6y6.html");
+            Test("x0012ezj2z6", cookie);
 
-
-            ////web.GoToUrl("https://www.baidu.com/");
-            ////var mainHandle = web.GetCurrentWindowHandle();
-
-
-            //var openJs = "window.open('https://v.qq.com/x/cover/kds9l8b75jvb6y6.html');";
-            //browser.ExecuteScript(openJs);
-
-            //Thread.Sleep(1000 * 10);
-            //foreach (var item in browser.GetWindowHandles())
-            //{
-            //    var tab = browser.GoToWindow(item);
-            //    Console.WriteLine(tab.Title);
-
-
-            //}
-            //browser.Close();
             Console.ReadKey();
         }
 
-        static void ConsoleList(List<string> list)
+        static void ConsoleWrite(string msg)
         {
-            foreach (var item in list)
-            {
-                Console.WriteLine(item);
-            }
+            Console.WriteLine(msg);
+            Logger.Info(msg);
         }
 
 
-        static Dictionary<string, string> PhantomJS()
+        static string PhantomJS()
         {
             var web = PhantomJSHelper.Instance;
             var pageSource = string.Empty;
@@ -62,7 +44,7 @@ namespace VipAnalyser.Test
             web.GoToUrl(url);
             //登录前cookie
             var cookie1 = web.GetAllCookies();
-            Console.WriteLine("登录前cookie");
+            ConsoleWrite("登录前cookie");
             ConsoleCookie(cookie1);
             //等待 登录弹窗
             if (!web.WaitForElementExists(By.Id("login_win_type"), 10))
@@ -81,8 +63,8 @@ namespace VipAnalyser.Test
             //登录方式：账号密码登录
             quick_frame.FindElement(By.Id("switcher_plogin")).Click();
             //登录
-            quick_frame.FindElement(By.Id("u")).SendKeys("");
-            quick_frame.FindElement(By.Id("p")).SendKeys("");
+            quick_frame.FindElement(By.Id("u")).SendKeys("602488225");
+            quick_frame.FindElement(By.Id("p")).SendKeys("qqoppzk");
             quick_frame.FindElement(By.Id("login_button")).Click();
             //回到 parent window
             var main = quick_frame.SwitchTo().DefaultContent();
@@ -95,25 +77,25 @@ namespace VipAnalyser.Test
                 //登录窗没有消失，要么账号密码错误，要么需要验证
                 return null;
             }
-            Console.WriteLine("------------------------------------------");
-            Console.WriteLine("登录成功");
-            Console.WriteLine("------------------------------------------");
+            ConsoleWrite("------------------------------------------");
+            ConsoleWrite("登录成功");
+            ConsoleWrite("------------------------------------------");
             //用户名
             var name = web.FindElementBy(By.ClassName("__nickname")).Text;
-            Console.WriteLine("用户名:{0}", name);
+            ConsoleWrite($"用户名:{name}");
             //到期时间
             var vip_time = web.FindElementBy(By.ClassName("_vip_desc")).Text;
-            Console.WriteLine("到期时间:{0}", vip_time);
+            ConsoleWrite($"到期时间:{vip_time}");
             //登录后cookie
             var cookie2 = web.GetAllCookies();
-            Console.WriteLine("登录后cookie");
+            ConsoleWrite("登录后cookie");
             ConsoleCookie(cookie2);
-            Console.WriteLine("------------------------------------------");
+            ConsoleWrite("------------------------------------------");
 
             var cookieStr = web.GetAllCookiesString();
-            Console.WriteLine(cookieStr);
+            ConsoleWrite(cookieStr);
 
-            return cookie2;
+            return cookieStr;
 
         }
 
@@ -121,7 +103,65 @@ namespace VipAnalyser.Test
         {
             foreach (var item in dic)
             {
-                Console.WriteLine("{0}:{1}", item.Key, item.Value);
+                ConsoleWrite($"{item.Key}:{item.Value}");
+            }
+        }
+
+
+        static void Test(string vid, string cookie)
+        {
+            //http://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform=11&defnpayver=1&vid=x0012ezj2z6
+            var info_api = $"http://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform=11&defnpayver=1&vid={vid}";
+            var info = HttpHelper.Get(info_api);
+            var infoText = Regex.Match(info, "QZOutputJson=(.*)").Groups[1].Value.TrimEnd(';');
+            var infoJson = JsonConvert.DeserializeObject(infoText) as JObject;
+
+            if ((int)infoJson["exem"] != 0)
+            {
+                ConsoleWrite((string)infoJson["msg"]);
+                return;
+            }
+
+            var fn_pre = (string)infoJson["vl"]["vi"][0]["lnk"];
+            var title = (string)infoJson["vl"]["vi"][0]["ti"];
+            var host = (string)infoJson["vl"]["vi"][0]["ul"]["ui"][0]["url"];
+
+            var streams = infoJson["fl"]["fi"];
+
+            var seg_cnt = (int)infoJson["vl"]["vi"][0]["cl"]["fc"];
+            if (seg_cnt == 0)
+                seg_cnt = 1;
+
+            var best_quality = (string)streams.Last["name"];
+            var part_format_id = (int)streams.Last["id"];
+
+            var part_urls = new List<KeyValuePair<string, string>>();
+
+            for (int i = 1; i < seg_cnt + 1; i++)
+            {
+                var filename = $"{fn_pre}.p{part_format_id % 10000}.{i}.mp4";
+                var key_api = $"http://vv.video.qq.com/getkey?otype=json&platform=11&format={part_format_id}&vid={vid}&filename={filename}&appver=3.2.19.333";
+                var keyInfo = HttpHelper.Get(key_api, cookie);
+                var keyText = Regex.Match(keyInfo, "QZOutputJson=(.*)").Groups[1].Value.TrimEnd(';');
+                var keyJson = JsonConvert.DeserializeObject(keyText) as JObject;
+
+                if (string.IsNullOrEmpty((string)keyJson["key"]))
+                {
+                    ConsoleWrite((string)keyJson["msg"]);
+                    break;
+                }
+
+                var vkey = (string)keyJson["key"];
+                var url = $"{host}{filename}?vkey={vkey}";
+                part_urls.Add(new KeyValuePair<string, string>(filename, url));
+            }
+
+
+            foreach (var part in part_urls)
+            {
+                ConsoleWrite("--------------------------------");
+                ConsoleWrite(part.Key);
+                ConsoleWrite(part.Value);
             }
         }
 

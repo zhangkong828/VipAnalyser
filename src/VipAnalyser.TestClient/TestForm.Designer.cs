@@ -116,7 +116,7 @@
             this.rtxt_Param.Name = "rtxt_Param";
             this.rtxt_Param.Size = new System.Drawing.Size(400, 419);
             this.rtxt_Param.TabIndex = 6;
-            this.rtxt_Param.Text = "";
+            this.rtxt_Param.Text = "{\n\"Url\":\"https://v.qq.com/x/cover/kds9l8b75jvb6y6.html\"\n}";
             this.rtxt_Param.Leave += new System.EventHandler(this.rtxt_Param_Leave);
             // 
             // label3

@@ -28,26 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.rtb_record = new System.Windows.Forms.RichTextBox();
             this.btn_test = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rtb_record
             // 
-            this.rtb_record.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.rtb_record.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtb_record.Location = new System.Drawing.Point(0, 0);
             this.rtb_record.Name = "rtb_record";
-            this.rtb_record.Size = new System.Drawing.Size(545, 362);
+            this.rtb_record.Size = new System.Drawing.Size(571, 590);
             this.rtb_record.TabIndex = 4;
             this.rtb_record.Text = "";
             // 
             // btn_test
             // 
             this.btn_test.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_test.Location = new System.Drawing.Point(544, 0);
+            this.btn_test.Location = new System.Drawing.Point(570, 0);
             this.btn_test.Name = "btn_test";
             this.btn_test.Size = new System.Drawing.Size(40, 40);
             this.btn_test.TabIndex = 11;
@@ -59,7 +58,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 362);
+            this.ClientSize = new System.Drawing.Size(610, 590);
             this.Controls.Add(this.btn_test);
             this.Controls.Add(this.rtb_record);
             this.MinimumSize = new System.Drawing.Size(600, 400);

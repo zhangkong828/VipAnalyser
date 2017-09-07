@@ -486,10 +486,7 @@ namespace VipAnalyser.Core
 
             //FiddlerCoreHelper.Close();
         }
-
-        /// <summary>
-        /// 显示执行时会造成程序无法响应,隐藏时没有问题
-        /// </summary>
+        
         private void ExcuteRecord(string msg)
         {
             try

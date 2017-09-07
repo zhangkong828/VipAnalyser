@@ -26,7 +26,8 @@ namespace VipAnalyser.Core.Process
             {
                 ProcessResult(x);
             }));
-            _form._browser.Load("https://v.qq.com/x/cover/kds9l8b75jvb6y6.html");
+            //https://v.qq.com/x/cover/kds9l8b75jvb6y6.html
+            _form._browser.Load(request.Url);
 
         }
 
@@ -36,7 +37,7 @@ namespace VipAnalyser.Core.Process
             VQQXmlModel qqXmlModel = null;
             try
             {
-                qqXmlModel= XmlHelper.XmlDeserialize<VQQXmlModel>(xml, Encoding.UTF8);
+                qqXmlModel = XmlHelper.XmlDeserialize<VQQXmlModel>(xml, Encoding.UTF8);
             }
             catch (Exception ex)
             {
