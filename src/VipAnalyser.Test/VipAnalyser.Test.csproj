@@ -66,6 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomAttribute.cs" />
+    <Compile Include="CustomFactory.cs" />
     <Compile Include="FiddlerCore.cs" />
     <Compile Include="PhantomJSHelper.cs" />
     <Compile Include="Program.cs" />
