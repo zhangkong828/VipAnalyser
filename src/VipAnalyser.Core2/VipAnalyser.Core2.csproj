@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,9 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extension\qq.cs" />
+    <Compile Include="AnalysisTypeAttribute.cs" />
+    <Compile Include="AnalysisFactory.cs" />
+    <Compile Include="Extension\IQiYi.cs" />
+    <Compile Include="Extension\QQ.cs" />
+    <Compile Include="Extension\YouKu.cs" />
+    <Compile Include="IAnalyser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiteCode.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VipAnalyser.ClassCommon\VipAnalyser.ClassCommon.csproj">
+      <Project>{CA01BEE0-46C3-4962-A25E-42B3021220C7}</Project>
+      <Name>VipAnalyser.ClassCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

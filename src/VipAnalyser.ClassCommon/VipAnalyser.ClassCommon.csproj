@@ -67,13 +67,14 @@
     <Compile Include="ArtificialModels\ArtificialParamModel.cs" />
     <Compile Include="ArtificialModels\ArtificialResultModel.cs" />
     <Compile Include="CommonCla.cs" />
+    <Compile Include="EnumExtension.cs" />
     <Compile Include="FiddlerCoreHelper.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\BaseRequest.cs" />
     <Compile Include="Models\BaseResponse.cs" />
-    <Compile Include="Models\VideoDecodeRequest.cs" />
-    <Compile Include="Models\VideoDecodeResponse.cs" />
+    <Compile Include="Models\VideoAnalyseRequest.cs" />
+    <Compile Include="Models\VideoAnalyseResponse.cs" />
     <Compile Include="Models\VQQXmlModel.cs" />
     <Compile Include="ProcessHelp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

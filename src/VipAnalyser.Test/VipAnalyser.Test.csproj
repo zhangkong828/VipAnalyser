@@ -66,8 +66,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomAttribute.cs" />
-    <Compile Include="CustomFactory.cs" />
     <Compile Include="FiddlerCore.cs" />
     <Compile Include="PhantomJSHelper.cs" />
     <Compile Include="Program.cs" />
@@ -88,6 +86,10 @@
     <ProjectReference Include="..\VipAnalyser.ClassCommon\VipAnalyser.ClassCommon.csproj">
       <Project>{ca01bee0-46c3-4962-a25e-42b3021220c7}</Project>
       <Name>VipAnalyser.ClassCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VipAnalyser.Core2\VipAnalyser.Core2.csproj">
+      <Project>{8e863c2c-0f2e-4aa9-9c44-540ad0c8c179}</Project>
+      <Name>VipAnalyser.Core2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

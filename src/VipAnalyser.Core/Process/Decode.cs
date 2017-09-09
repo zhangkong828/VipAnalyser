@@ -12,12 +12,12 @@ namespace VipAnalyser.Core.Process
 {
     public class Decode : ProcessBase, IProcessBase
     {
-        VideoDecodeRequest request;
+        VideoAnalyseRequest request;
 
         public Decode(DriverForm form, ArtificialParamModel paramModel)
            : base(form, paramModel)
         {
-            request = JsonConvert.DeserializeObject<VideoDecodeRequest>(_paramModel.Param.ToString());
+            request = JsonConvert.DeserializeObject<VideoAnalyseRequest>(_paramModel.Param.ToString());
         }
 
         public void Begin()

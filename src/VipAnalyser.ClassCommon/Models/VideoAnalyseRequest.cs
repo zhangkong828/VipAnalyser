@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VipAnalyser.ClassCommon.Models
 {
-    public class VideoDecodeRequest : BaseRequest
+    public class VideoAnalyseRequest : BaseRequest
     {
         public string Url { get; set; }
     }

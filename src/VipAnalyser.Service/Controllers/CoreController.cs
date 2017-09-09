@@ -21,9 +21,9 @@ namespace VipAnalyser.Service.Controllers
 
         [Route("/api/core/decode")]
         [HttpGet]
-        public VideoDecodeResponse Decode(VideoDecodeRequest request)
+        public VideoAnalyseResponse Decode(VideoAnalyseRequest request)
         {
-            var response = new VideoDecodeResponse();
+            var response = new VideoAnalyseResponse();
             try
             {
                 //校验url正确性

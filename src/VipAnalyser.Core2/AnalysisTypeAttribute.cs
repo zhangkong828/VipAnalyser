@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VipAnalyser.Test
+namespace VipAnalyser.Core2
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = true)]
-    public class CustomAttribute : Attribute
+    public class AnalysisTypeAttribute : Attribute
     {
-        public string Type { get; set; }
+        public SiteCode Type { get; set; }
     }
 }

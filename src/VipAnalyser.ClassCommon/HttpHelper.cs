@@ -24,7 +24,7 @@ namespace VipAnalyser.ClassCommon
             {
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
-                if (cookie != null)
+                if (!string.IsNullOrEmpty(cookie))
                     request.Headers[HttpRequestHeader.Cookie] = cookie;
                 request.Timeout = 1000 * 10;
                 request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36";

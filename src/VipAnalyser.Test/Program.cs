@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using VipAnalyser.ClassCommon;
+using VipAnalyser.Core2;
 
 namespace VipAnalyser.Test
 {
@@ -16,14 +17,19 @@ namespace VipAnalyser.Test
     {
         static void Main(string[] args)
         {
+            var url = "http://mp.weixin.qq.com/s/IuJfF7zidy9MU6OsHveu7w";
+            var result = AnalysisFactory.GetResponse(url);
+
+            var resultJson = JsonConvert.SerializeObject(result);
+
+            Console.WriteLine(resultJson);
+
+            //var cookie = PhantomJS();
 
 
-            var cookie = PhantomJS();
-
-
-            ConsoleWrite("开始解析");
-            ConsoleWrite("https://v.qq.com/x/cover/kds9l8b75jvb6y6.html");
-            Test("x0012ezj2z6", cookie);
+            //ConsoleWrite("开始解析");
+            //ConsoleWrite("https://v.qq.com/x/cover/kds9l8b75jvb6y6.html");
+            //Test("x0012ezj2z6", cookie);
 
             Console.ReadKey();
         }
@@ -63,8 +69,8 @@ namespace VipAnalyser.Test
             //登录方式：账号密码登录
             quick_frame.FindElement(By.Id("switcher_plogin")).Click();
             //登录
-            quick_frame.FindElement(By.Id("u")).SendKeys("602488225");
-            quick_frame.FindElement(By.Id("p")).SendKeys("qqoppzk");
+            quick_frame.FindElement(By.Id("u")).SendKeys("");
+            quick_frame.FindElement(By.Id("p")).SendKeys("");
             quick_frame.FindElement(By.Id("login_button")).Click();
             //回到 parent window
             var main = quick_frame.SwitchTo().DefaultContent();
