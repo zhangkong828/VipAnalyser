@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VipAnalyser.Service", "VipA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VipAnalyser.Core2", "VipAnalyser.Core2\VipAnalyser.Core2.csproj", "{8E863C2C-0F2E-4AA9-9C44-540AD0C8C179}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VipAnalyser.LoginManager", "VipAnalyser.LoginManager\VipAnalyser.LoginManager.csproj", "{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{8E863C2C-0F2E-4AA9-9C44-540AD0C8C179}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E863C2C-0F2E-4AA9-9C44-540AD0C8C179}.Release|x86.ActiveCfg = Release|Any CPU
 		{8E863C2C-0F2E-4AA9-9C44-540AD0C8C179}.Release|x86.Build.0 = Release|Any CPU
+		{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}.Debug|x86.Build.0 = Debug|Any CPU
+		{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}.Release|x86.ActiveCfg = Release|Any CPU
+		{97A98B16-416A-4C0E-9F3F-3F7BBA0E69EE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

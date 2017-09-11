@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using VipAnalyser.ClassCommon;
 using VipAnalyser.Core2;
+using VipAnalyser.LoginManager;
 
 namespace VipAnalyser.Test
 {
@@ -17,12 +18,24 @@ namespace VipAnalyser.Test
     {
         static void Main(string[] args)
         {
-            var url = "http://mp.weixin.qq.com/s/IuJfF7zidy9MU6OsHveu7w";
-            var result = AnalysisFactory.GetResponse(url);
+            var driver = new PhantomJSDriverHelper();
+            var cookies = string.Empty;
+            if (driver.QQLogin("602488225", "6024oppZK", out cookies))
+            {
+                Console.WriteLine("登录成功！");
+                Console.WriteLine(cookies);
+            }
+            else
+            {
+                Console.WriteLine("登录失败");
+            }
 
-            var resultJson = JsonConvert.SerializeObject(result);
+            //var url = "http://mp.weixin.qq.com/s/IuJfF7zidy9MU6OsHveu7w";
+            //var result = AnalysisFactory.GetResponse(url);
 
-            Console.WriteLine(resultJson);
+            //var resultJson = JsonConvert.SerializeObject(result);
+
+            //Console.WriteLine(resultJson);
 
             //var cookie = PhantomJS();
 
