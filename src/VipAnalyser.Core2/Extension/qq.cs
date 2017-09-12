@@ -14,7 +14,7 @@ namespace VipAnalyser.Core2.Extension
     [AnalysisType(Type = SiteCode.QQ)]
     public class QQ : IAnalyser
     {
-        public VideoAnalyseResponse Analyse(string url)
+        public VideoAnalyseResponse Analyse(string url, string cookie = null)
         {
             var response = new VideoAnalyseResponse();
             var vids = GetVid(url);
@@ -24,7 +24,7 @@ namespace VipAnalyser.Core2.Extension
                 var errorMsg = string.Empty;
                 foreach (var vid in vids)
                 {
-                    if (GetInfo(vid, "", out info, out errorMsg))
+                    if (GetInfo(vid, cookie, out info, out errorMsg))
                     {
                         response.Data.Add(info);
                     }

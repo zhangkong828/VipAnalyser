@@ -9,7 +9,7 @@ namespace VipAnalyser.Core2.Extension
 {
     public class IQiYi : IAnalyser
     {
-        public VideoAnalyseResponse Analyse(string url)
+        public VideoAnalyseResponse Analyse(string url, string cookie = null)
         {
             return new VideoAnalyseResponse() { ErrMsg = "iqiyi" };
         }

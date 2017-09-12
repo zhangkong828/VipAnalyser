@@ -9,6 +9,6 @@ namespace VipAnalyser.Core2
 {
     interface IAnalyser
     {
-        VideoAnalyseResponse Analyse(string url);
+        VideoAnalyseResponse Analyse(string url, string cookie);
     }
 }

@@ -32,9 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -67,6 +66,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="install.cmd" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="uninstall.cmd" />
   </ItemGroup>
@@ -75,6 +77,19 @@
       <Project>{ca01bee0-46c3-4962-a25e-42b3021220c7}</Project>
       <Name>VipAnalyser.ClassCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VipAnalyser.Core2\VipAnalyser.Core2.csproj">
+      <Project>{8e863c2c-0f2e-4aa9-9c44-540ad0c8c179}</Project>
+      <Name>VipAnalyser.Core2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VipAnalyser.LoginManager\VipAnalyser.LoginManager.csproj">
+      <Project>{97a98b16-416a-4c0e-9f3f-3f7bba0e69ee}</Project>
+      <Name>VipAnalyser.LoginManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="phantomjs.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

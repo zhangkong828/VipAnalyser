@@ -13,9 +13,9 @@ namespace VipAnalyser.Service
         {
             HostFactory.Run(c =>
             {
-                c.SetServiceName("服务名称");
-                c.SetDisplayName("显示名称");
-                c.SetDescription("描述");
+                c.SetServiceName("VipAnalyser");
+                c.SetDisplayName("VipAnalyser视频解析服务");
+                c.SetDescription("解析vip视频，提供视频解析后的真实地址源");
 
                 c.RunAsLocalSystem();
                 c.StartAutomatically();

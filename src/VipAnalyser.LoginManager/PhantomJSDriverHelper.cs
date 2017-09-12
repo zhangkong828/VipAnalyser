@@ -69,6 +69,11 @@ namespace VipAnalyser.LoginManager
             return cookie.Value;
         }
 
+        public void Close()
+        {
+            _webDriver.Close();
+        }
+
         public void Quit()
         {
             _webDriver.Quit();

@@ -31,7 +31,7 @@ namespace VipAnalyser.Core2
             }
         }
 
-        public static VideoAnalyseResponse GetResponse(string url)
+        public static VideoAnalyseResponse GetResponse(string url, string cookie = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -50,7 +50,7 @@ namespace VipAnalyser.Core2
                     ErrMsg = "没有找到对应的解析器，无法解析"
                 };
             }
-            return analyser.Analyse(url);
+            return analyser.Analyse(url, cookie);
         }
 
 

@@ -9,7 +9,7 @@ namespace VipAnalyser.Core2.Extension
 {
     public class YouKu : IAnalyser
     {
-        public VideoAnalyseResponse Analyse(string url)
+        public VideoAnalyseResponse Analyse(string url, string cookie = null)
         {
             return new VideoAnalyseResponse() { ErrMsg = "youku" };
         }

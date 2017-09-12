@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
+using VipAnalyser.LoginManager;
 
 namespace VipAnalyser.Service
 {
@@ -33,11 +34,22 @@ namespace VipAnalyser.Service
         }
         public void Start()
         {
+            //qq登录检测
+            var qqUserName = ConfigurationManager.AppSettings["QQUserName"];
+            var qqPassword = ConfigurationManager.AppSettings["QQPassword"];
+            if (string.IsNullOrEmpty(qqUserName) || string.IsNullOrEmpty(qqPassword))
+            {
+                throw new Exception("账号密码不能为空");
+            }
+            LoginMonitor.QQ(qqUserName, qqPassword);
+
             server.OpenAsync();
         }
 
         public void Stop()
         {
+            LoginMonitor.Quit();
+
             server.CloseAsync();
             server.Dispose();
         }

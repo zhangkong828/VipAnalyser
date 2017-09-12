@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using VipAnalyser.ClassCommon;
 using VipAnalyser.ClassCommon.Models;
+using VipAnalyser.Core2;
+using VipAnalyser.LoginManager;
 
 namespace VipAnalyser.Service.Controllers
 {
@@ -19,24 +21,22 @@ namespace VipAnalyser.Service.Controllers
         }
 
 
-        [Route("/api/core/decode")]
-        [HttpGet]
-        public VideoAnalyseResponse Decode(VideoAnalyseRequest request)
+        [Route("/api/core/analyse")]
+        [HttpPost]
+        public VideoAnalyseResponse Analyse([FromBody]VideoAnalyseRequest request)
         {
             var response = new VideoAnalyseResponse();
             try
             {
-                //校验url正确性
-                //判断来源
-
-
-                var result = SocketAccess.Access<string, string>(
-                            "Decode",
-                            request.Url,
-                            request.TimeOut,
-                            Guid.NewGuid().ToString(),
-                            6666);
-
+                if (string.IsNullOrEmpty(request.Url))
+                {
+                    response.ErrCode = -1;
+                    response.ErrMsg = "url不存在";
+                }
+                else
+                {
+                    response = AnalysisFactory.GetResponse(request.Url, LoginMonitor.QQCookies);
+                }
             }
             catch (Exception ex)
             {
@@ -47,16 +47,6 @@ namespace VipAnalyser.Service.Controllers
             return response;
         }
 
-        [Route("/api/proxy/push")]
-        [HttpPost]
-        public bool Push([FromBody]string param)
-        {
-            if (string.IsNullOrEmpty(param))
-            {
-                return false;
-            }
 
-            return true;
-        }
     }
 }

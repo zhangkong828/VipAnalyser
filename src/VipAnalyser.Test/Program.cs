@@ -18,24 +18,23 @@ namespace VipAnalyser.Test
     {
         static void Main(string[] args)
         {
-            var driver = new PhantomJSDriverHelper();
-            var cookies = string.Empty;
-            if (driver.QQLogin("602488225", "6024oppZK", out cookies))
+            LoginMonitor.QQ("", "");
+
+            Console.WriteLine("等待登录...");
+            while (string.IsNullOrEmpty(LoginMonitor.QQCookies))
             {
-                Console.WriteLine("登录成功！");
-                Console.WriteLine(cookies);
+                Thread.Sleep(500);
             }
-            else
-            {
-                Console.WriteLine("登录失败");
-            }
+            var cookie = LoginMonitor.QQCookies;
+            Console.WriteLine(cookie);
 
-            //var url = "http://mp.weixin.qq.com/s/IuJfF7zidy9MU6OsHveu7w";
-            //var result = AnalysisFactory.GetResponse(url);
 
-            //var resultJson = JsonConvert.SerializeObject(result);
+            var url = "http://mp.weixin.qq.com/s/IuJfF7zidy9MU6OsHveu7w";
+            var result = AnalysisFactory.GetResponse(url, cookie);
 
-            //Console.WriteLine(resultJson);
+            var resultJson = JsonConvert.SerializeObject(result);
+
+            Console.WriteLine(resultJson);
 
             //var cookie = PhantomJS();
 
