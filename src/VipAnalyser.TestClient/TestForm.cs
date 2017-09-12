@@ -24,7 +24,6 @@ namespace VipAnalyser.TestClient
 
         private void TestForm_Load(object sender, EventArgs e)
         {
-            cmb_Type.SelectedIndex = 0;
         }
 
         private void rtxt_Param_Leave(object sender, EventArgs e)
@@ -108,9 +107,9 @@ namespace VipAnalyser.TestClient
                 string result = string.Empty;
                 if (radio_local.Checked)
                 {
-                    //本地调试
+                    //socket
                     result = SocketAccess.Access<string, string>(
-                        cmb_Type.Text,
+                        txtType.Text,
                         rtxt_Param.Text,
                         int.Parse(numeric_Timeout.Value.ToString()),
                         stopkey,
@@ -118,7 +117,10 @@ namespace VipAnalyser.TestClient
                 }
                 else
                 {
-                    //远程模拟
+                    //http
+                    var url = txtAddress.Text + txtType.Text;
+                    var postData = rtxt_Param.Text.Replace("\n","");
+                    result = HttpHelper.Post(url, postData);
                 }
 
                 try
@@ -153,6 +155,7 @@ namespace VipAnalyser.TestClient
             if (radio_local.Checked)
             {
                 txtAddress.Text = "6666";
+                txtType.Text = "Decode";
             }
         }
 
@@ -160,7 +163,8 @@ namespace VipAnalyser.TestClient
         {
             if (radio_remote.Checked)
             {
-                txtAddress.Text = "127.0.0.1:11234";
+                txtAddress.Text = "http://127.0.0.1:11234/";
+                txtType.Text = "api/core/analyse";
             }
         }
     }

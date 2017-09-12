@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.btn_Excute = new System.Windows.Forms.Button();
-            this.cmb_Type = new System.Windows.Forms.ComboBox();
             this.numeric_Timeout = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,6 +43,7 @@
             this.radio_remote = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
+            this.txtType = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_Timeout)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,16 +57,6 @@
             this.btn_Excute.Text = "调用";
             this.btn_Excute.UseVisualStyleBackColor = true;
             this.btn_Excute.Click += new System.EventHandler(this.btn_Excute_Click);
-            // 
-            // cmb_Type
-            // 
-            this.cmb_Type.FormattingEnabled = true;
-            this.cmb_Type.Items.AddRange(new object[] {
-            "Decode"});
-            this.cmb_Type.Location = new System.Drawing.Point(77, 70);
-            this.cmb_Type.Name = "cmb_Type";
-            this.cmb_Type.Size = new System.Drawing.Size(351, 20);
-            this.cmb_Type.TabIndex = 1;
             // 
             // numeric_Timeout
             // 
@@ -183,10 +173,10 @@
             this.radio_local.Checked = true;
             this.radio_local.Location = new System.Drawing.Point(77, 19);
             this.radio_local.Name = "radio_local";
-            this.radio_local.Size = new System.Drawing.Size(71, 16);
+            this.radio_local.Size = new System.Drawing.Size(59, 16);
             this.radio_local.TabIndex = 13;
             this.radio_local.TabStop = true;
-            this.radio_local.Text = "本地调试";
+            this.radio_local.Text = "socket";
             this.radio_local.UseVisualStyleBackColor = true;
             this.radio_local.CheckedChanged += new System.EventHandler(this.radio_local_CheckedChanged);
             // 
@@ -195,9 +185,9 @@
             this.radio_remote.AutoSize = true;
             this.radio_remote.Location = new System.Drawing.Point(155, 19);
             this.radio_remote.Name = "radio_remote";
-            this.radio_remote.Size = new System.Drawing.Size(71, 16);
+            this.radio_remote.Size = new System.Drawing.Size(47, 16);
             this.radio_remote.TabIndex = 14;
-            this.radio_remote.Text = "远程模拟";
+            this.radio_remote.Text = "http";
             this.radio_remote.UseVisualStyleBackColor = true;
             this.radio_remote.CheckedChanged += new System.EventHandler(this.radio_remote_CheckedChanged);
             // 
@@ -218,11 +208,20 @@
             this.txtAddress.TabIndex = 16;
             this.txtAddress.Text = "6666";
             // 
+            // txtType
+            // 
+            this.txtType.Location = new System.Drawing.Point(78, 71);
+            this.txtType.Name = "txtType";
+            this.txtType.Size = new System.Drawing.Size(350, 21);
+            this.txtType.TabIndex = 17;
+            this.txtType.Text = "Decode";
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(929, 623);
+            this.Controls.Add(this.txtType);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.radio_remote);
@@ -237,7 +236,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numeric_Timeout);
-            this.Controls.Add(this.cmb_Type);
             this.Controls.Add(this.btn_Excute);
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "TestForm";
@@ -253,7 +251,6 @@
         #endregion
 
         private System.Windows.Forms.Button btn_Excute;
-        private System.Windows.Forms.ComboBox cmb_Type;
         private System.Windows.Forms.NumericUpDown numeric_Timeout;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -268,5 +265,6 @@
         private System.Windows.Forms.RadioButton radio_remote;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.TextBox txtType;
     }
 }

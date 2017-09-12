@@ -42,6 +42,44 @@ namespace VipAnalyser.ClassCommon
             return html;
         }
 
+        public static string Post(string url, string postData, string cookie = null, string encodingStr = "UTF-8")
+        {
+            var html = "";
+            var encoding = Encoding.UTF8;
+            try
+            {
+                encoding = Encoding.GetEncoding(encodingStr);
+            }
+            catch { }
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+                if (!string.IsNullOrEmpty(cookie))
+                    request.Headers[HttpRequestHeader.Cookie] = cookie;
+                request.Timeout = 1000 * 10;
+                request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36";
+                byte[] byteArray = encoding.GetBytes(postData);
+                request.ContentType = "application/json";
+                request.ContentLength = byteArray.Length;
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(byteArray, 0, byteArray.Length);
+                }
+                var response = (HttpWebResponse)request.GetResponse();
+                using (var sr = new StreamReader(response.GetResponseStream(), encoding))
+                {
+                    html = sr.ReadToEnd();
+                }
+                html = GetResponseBody(response, encoding);
+            }
+            catch (Exception ex)
+            {
+                //log
+            }
+            return html;
+        }
+
 
         private static string GetResponseBody(HttpWebResponse response, Encoding encoding)
         {

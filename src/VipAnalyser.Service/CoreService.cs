@@ -37,10 +37,6 @@ namespace VipAnalyser.Service
             //qq登录检测
             var qqUserName = ConfigurationManager.AppSettings["QQUserName"];
             var qqPassword = ConfigurationManager.AppSettings["QQPassword"];
-            if (string.IsNullOrEmpty(qqUserName) || string.IsNullOrEmpty(qqPassword))
-            {
-                throw new Exception("账号密码不能为空");
-            }
             LoginMonitor.QQ(qqUserName, qqPassword);
 
             server.OpenAsync();
