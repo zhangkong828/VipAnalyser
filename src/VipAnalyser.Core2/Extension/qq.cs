@@ -78,7 +78,7 @@ namespace VipAnalyser.Core2.Extension
                 var infoText = Regex.Match(info, "QZOutputJson=(.*)").Groups[1].Value.TrimEnd(';');
                 var infoJson = JsonConvert.DeserializeObject(infoText) as JObject;
 
-                if ((int)infoJson["exem"] != 0)
+                if (infoJson["msg"] != null)
                 {
                     errorMsg = (string)infoJson["msg"];
                     return false;

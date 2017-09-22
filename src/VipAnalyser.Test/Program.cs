@@ -28,13 +28,13 @@ namespace VipAnalyser.Test
             var cookie = LoginMonitor.QQCookies;
             Console.WriteLine(cookie);
 
-            //https://v.qq.com/x/cover/kds9l8b75jvb6y6.html
-            var url = "http://mp.weixin.qq.com/s/IuJfF7zidy9MU6OsHveu7w";
+            var url = "https://v.qq.com/x/cover/kds9l8b75jvb6y6.html";
+            //var url = "http://mp.weixin.qq.com/s/IuJfF7zidy9MU6OsHveu7w";
             var result = AnalysisFactory.GetResponse(url, cookie);
 
             var resultJson = JsonConvert.SerializeObject(result);
 
-            Console.WriteLine(resultJson);
+            ConsoleWrite(resultJson);
 
           
             Console.ReadKey();
