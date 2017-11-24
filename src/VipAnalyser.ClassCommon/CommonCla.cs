@@ -14,22 +14,6 @@ namespace VipAnalyser.ClassCommon
 {
     public class CommonCla
     {
-        public static string[] telStartsAll = "134,135,136,137,138,139,150,151,152,157,158,159,130,131,132,155,156,133,153,180,181,182,183,185,186,176,187,188,189,177,178".Split(',');
-
-        public static string[] telStarts = "130,131,132,156,155,133,153,139,138,137,136,135,159,158,157,150,151,152".Split(',');
-
-        /// <summary>
-        /// 随机生成电话号码
-        /// </summary>
-        public static string GetRandomTel()
-        {
-            Random ran = new Random();
-            int index = ran.Next(0, telStarts.Length - 1);
-            string first = telStarts[index];
-            string second = (ran.Next(100, 888) + 10000).ToString().Substring(1);
-            string thrid = (ran.Next(1, 9100) + 10000).ToString().Substring(1);
-            return first + second + thrid;
-        }
 
         /// <summary>
         /// 检测是否有中文字符

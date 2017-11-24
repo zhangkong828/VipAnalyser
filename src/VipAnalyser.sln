@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VipAnalyser.Test", "VipAnalyser.Test\VipAnalyser.Test.csproj", "{5874C603-C06E-44F4-BB57-6B9C7BE3F03C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VipAnalyser.ClassCommon", "VipAnalyser.ClassCommon\VipAnalyser.ClassCommon.csproj", "{CA01BEE0-46C3-4962-A25E-42B3021220C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VipAnalyser.TestClient", "VipAnalyser.TestClient\VipAnalyser.TestClient.csproj", "{C556BE68-D4F1-4582-9994-C4A485672872}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VipAnalyser.Core", "VipAnalyser.Core\VipAnalyser.Core.csproj", "{D331D069-C14C-44BD-9EED-CB3461A96BD7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VipAnalyser.Service", "VipAnalyser.Service\VipAnalyser.Service.csproj", "{227B4463-BEB0-4FF4-A000-A0C6BB4F1031}"
 EndProject
@@ -49,14 +47,6 @@ Global
 		{C556BE68-D4F1-4582-9994-C4A485672872}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C556BE68-D4F1-4582-9994-C4A485672872}.Release|x86.ActiveCfg = Release|Any CPU
 		{C556BE68-D4F1-4582-9994-C4A485672872}.Release|x86.Build.0 = Release|Any CPU
-		{D331D069-C14C-44BD-9EED-CB3461A96BD7}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{D331D069-C14C-44BD-9EED-CB3461A96BD7}.Debug|Any CPU.Build.0 = Debug|x86
-		{D331D069-C14C-44BD-9EED-CB3461A96BD7}.Debug|x86.ActiveCfg = Debug|x86
-		{D331D069-C14C-44BD-9EED-CB3461A96BD7}.Debug|x86.Build.0 = Debug|x86
-		{D331D069-C14C-44BD-9EED-CB3461A96BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D331D069-C14C-44BD-9EED-CB3461A96BD7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D331D069-C14C-44BD-9EED-CB3461A96BD7}.Release|x86.ActiveCfg = Release|Any CPU
-		{D331D069-C14C-44BD-9EED-CB3461A96BD7}.Release|x86.Build.0 = Release|Any CPU
 		{227B4463-BEB0-4FF4-A000-A0C6BB4F1031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{227B4463-BEB0-4FF4-A000-A0C6BB4F1031}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{227B4463-BEB0-4FF4-A000-A0C6BB4F1031}.Debug|x86.ActiveCfg = Debug|Any CPU

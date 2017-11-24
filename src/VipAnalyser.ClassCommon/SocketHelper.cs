@@ -99,7 +99,7 @@ namespace VipAnalyser.ClassCommon
         public static int Send(Socket socket, string msg, int timeout = 0)
         {
             socket.SendTimeout = timeout * 1000;
-            byte[] bytes = Encoding.Default.GetBytes(msg + "#Qpp");
+            byte[] bytes = Encoding.Default.GetBytes(msg + "#IZK");
             return socket.Send(bytes, bytes.Length, SocketFlags.None);
         }
 

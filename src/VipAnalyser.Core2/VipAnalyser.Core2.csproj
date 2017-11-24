@@ -53,13 +53,13 @@
     <Compile Include="SiteCode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VipAnalyser.ClassCommon\VipAnalyser.ClassCommon.csproj">
-      <Project>{CA01BEE0-46C3-4962-A25E-42B3021220C7}</Project>
-      <Name>VipAnalyser.ClassCommon</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\VipAnalyser.ClassCommon\VipAnalyser.ClassCommon.csproj">
+      <Project>{ca01bee0-46c3-4962-a25e-42b3021220c7}</Project>
+      <Name>VipAnalyser.ClassCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,9 +34,6 @@ namespace VipAnalyser.ClassCommon
         A_RequestNormalBreak = -99992,
 
         [Description("人工模拟未启动/已关闭,请稍后再试")]
-        A_ProgramNoStarted = -99991,
-
-        [Description("非工作时段")]
-        A_NotWorkTime = -99990
+        A_ProgramNoStarted = -99991
     }
 }

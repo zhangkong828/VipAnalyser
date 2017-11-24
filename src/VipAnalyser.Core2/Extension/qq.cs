@@ -103,9 +103,10 @@ namespace VipAnalyser.Core2.Extension
 
                 var partInfos = new List<PartInfo>();
 
-                for (int i = 1; i < seg_cnt + 1; i++)
+                Parallel.For(1, seg_cnt + 1, i =>
                 {
                     var part = new PartInfo();
+                    part.Index = i;
                     var filename = $"{fn_pre}.p{part_format_id % 10000}.{i}.mp4";
                     part.Name = filename;
                     var key_api = $"http://vv.video.qq.com/getkey?otype=json&platform=11&format={part_format_id}&vid={vid}&filename={filename}&appver=3.2.19.333";
@@ -117,15 +118,16 @@ namespace VipAnalyser.Core2.Extension
                     {
                         part.Remark = (string)keyJson["msg"];
                         partInfos.Add(part);
-                        continue;
+                        return;
                     }
 
                     var vkey = (string)keyJson["key"];
                     var url = $"{host}{filename}?vkey={vkey}";
                     part.Url = url;
                     partInfos.Add(part);
-                }
-                videoInfo.Part = partInfos;
+                });
+
+                videoInfo.Part = partInfos.OrderBy(x => x.Index).ToList();
                 videoInfo.PartCount = partInfos.Count;
                 return true;
             }
