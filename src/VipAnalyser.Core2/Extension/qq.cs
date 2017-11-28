@@ -98,16 +98,27 @@ namespace VipAnalyser.Core2.Extension
                     seg_cnt = 1;
 
                 var best_quality = (string)streams.Last["name"];
+                var definition = (string)streams.Last["cname"];
                 var part_format_id = (int)streams.Last["id"];
 
-
+                var ci = infoJson["vl"]["vi"][0]["cl"]["ci"];
                 var partInfos = new List<PartInfo>();
-
-                Parallel.For(1, seg_cnt + 1, i =>
+                foreach (var item in ci)
                 {
-                    var part = new PartInfo();
-                    part.Index = i;
-                    var filename = $"{fn_pre}.p{part_format_id % 10000}.{i}.mp4";
+                    var index = (int)item["idx"];
+                    double.TryParse((string)item["cd"], out double duration);
+                    var id = (string)item["keyid"];
+                    partInfos.Add(new PartInfo()
+                    {
+                        Index = index,
+                        Id = id,
+                        Duration = duration
+                    });
+                }
+
+                Parallel.ForEach(partInfos, part =>
+                {
+                    var filename = $"{fn_pre}.p{part_format_id % 10000}.{part.Index}.mp4";
                     part.Name = filename;
                     var key_api = $"http://vv.video.qq.com/getkey?otype=json&platform=11&format={part_format_id}&vid={vid}&filename={filename}&appver=3.2.19.333";
                     var keyInfo = HttpHelper.Get(key_api, cookie);
@@ -117,18 +128,43 @@ namespace VipAnalyser.Core2.Extension
                     if (string.IsNullOrEmpty((string)keyJson["key"]))
                     {
                         part.Remark = (string)keyJson["msg"];
-                        partInfos.Add(part);
                         return;
                     }
 
                     var vkey = (string)keyJson["key"];
                     var url = $"{host}{filename}?vkey={vkey}";
                     part.Url = url;
-                    partInfos.Add(part);
+
                 });
+
+
+                //Parallel.For(1, seg_cnt + 1, i =>
+                //{
+                //    var part = new PartInfo();
+                //    part.Index = i;
+                //    var filename = $"{fn_pre}.p{part_format_id % 10000}.{i}.mp4";
+                //    part.Name = filename;
+                //    var key_api = $"http://vv.video.qq.com/getkey?otype=json&platform=11&format={part_format_id}&vid={vid}&filename={filename}&appver=3.2.19.333";
+                //    var keyInfo = HttpHelper.Get(key_api, cookie);
+                //    var keyText = Regex.Match(keyInfo, "QZOutputJson=(.*)").Groups[1].Value.TrimEnd(';');
+                //    var keyJson = JsonConvert.DeserializeObject(keyText) as JObject;
+
+                //    if (string.IsNullOrEmpty((string)keyJson["key"]))
+                //    {
+                //        part.Remark = (string)keyJson["msg"];
+                //        partInfos.Add(part);
+                //        return;
+                //    }
+
+                //    var vkey = (string)keyJson["key"];
+                //    var url = $"{host}{filename}?vkey={vkey}";
+                //    part.Url = url;
+                //    partInfos.Add(part);
+                //});
 
                 videoInfo.Part = partInfos.OrderBy(x => x.Index).ToList();
                 videoInfo.PartCount = partInfos.Count;
+                videoInfo.Definition = definition;
                 return true;
             }
             catch (Exception ex)
