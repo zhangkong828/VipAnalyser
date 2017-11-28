@@ -50,7 +50,11 @@ namespace VipAnalyser.LoginManager
                     }
                     finally
                     {
-                        driver.Close();
+                        try
+                        {
+                            driver.Close();
+                        }
+                        catch{ }
                     }
 
                     Thread.Sleep(1000 * tryLoginTime);
@@ -60,7 +64,11 @@ namespace VipAnalyser.LoginManager
 
         public static void Quit()
         {
-            driver.Quit();
+            try
+            {
+                driver.Quit();
+            }
+            catch { }
         }
 
     }
