@@ -26,6 +26,7 @@ namespace VipAnalyser.Service.Controllers
         public VideoAnalyseResponse Analyse([FromBody]VideoAnalyseRequest request)
         {
             var response = new VideoAnalyseResponse();
+            response.Version = this.Version;
             try
             {
                 if (string.IsNullOrEmpty(request.Url))
@@ -43,7 +44,7 @@ namespace VipAnalyser.Service.Controllers
                 response.ErrCode = -1;
                 response.ErrMsg = JsonConvert.SerializeObject(ex);
             }
-            response.Version = this.Version;
+            Logger.Info($"{JsonConvert.SerializeObject(request)} \r\n--->\r\n {JsonConvert.SerializeObject(response)}");
             return response;
         }
 

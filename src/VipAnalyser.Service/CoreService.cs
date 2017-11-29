@@ -34,7 +34,6 @@ namespace VipAnalyser.Service
         }
         public void Start()
         {
-            //qq登录检测
             var qqUserName = ConfigurationManager.AppSettings["QQUserName"];
             var qqPassword = ConfigurationManager.AppSettings["QQPassword"];
             LoginMonitor.QQ(qqUserName, qqPassword);

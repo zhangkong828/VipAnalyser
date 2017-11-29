@@ -33,6 +33,7 @@ namespace VipAnalyser.ClassCommon.Models
         public int PartCount { get; set; }
 
         public string Definition { get; set; }
+        public string Type { get; set; }
     }
 
     public class PartInfo

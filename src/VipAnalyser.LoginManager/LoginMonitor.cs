@@ -11,7 +11,10 @@ namespace VipAnalyser.LoginManager
     public class LoginMonitor
     {
         public static string QQCookies = string.Empty;
+
         private static PhantomJSDriverHelper driver;
+        private static bool IsQuit = false;
+
         static LoginMonitor()
         {
             driver = new PhantomJSDriverHelper();
@@ -22,7 +25,7 @@ namespace VipAnalyser.LoginManager
             Task.Run(() =>
             {
                 Thread.Sleep(1000 * 2);
-                while (true)
+                while (!IsQuit)
                 {
                     try
                     {
@@ -54,7 +57,7 @@ namespace VipAnalyser.LoginManager
                         {
                             driver.Close();
                         }
-                        catch{ }
+                        catch { }
                     }
 
                     Thread.Sleep(1000 * tryLoginTime);
@@ -64,6 +67,7 @@ namespace VipAnalyser.LoginManager
 
         public static void Quit()
         {
+            IsQuit = true;
             try
             {
                 driver.Quit();

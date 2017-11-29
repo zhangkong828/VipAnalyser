@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -89,6 +90,9 @@ namespace VipAnalyser.Core2.Extension
                 var title = (string)infoJson["vl"]["vi"][0]["ti"];
                 videoInfo.Name = title;
 
+                var fn = (string)infoJson["vl"]["vi"][0]["fn"];
+                videoInfo.Type = Path.GetExtension(fn);
+
                 var host = (string)infoJson["vl"]["vi"][0]["ul"]["ui"][0]["url"];
 
                 var streams = infoJson["fl"]["fi"];
@@ -99,6 +103,7 @@ namespace VipAnalyser.Core2.Extension
 
                 var best_quality = (string)streams.Last["name"];
                 var definition = (string)streams.Last["cname"];
+                definition = definition.Replace(";", "");
                 var part_format_id = (int)streams.Last["id"];
 
                 var ci = infoJson["vl"]["vi"][0]["cl"]["ci"];
@@ -136,31 +141,6 @@ namespace VipAnalyser.Core2.Extension
                     part.Url = url;
 
                 });
-
-
-                //Parallel.For(1, seg_cnt + 1, i =>
-                //{
-                //    var part = new PartInfo();
-                //    part.Index = i;
-                //    var filename = $"{fn_pre}.p{part_format_id % 10000}.{i}.mp4";
-                //    part.Name = filename;
-                //    var key_api = $"http://vv.video.qq.com/getkey?otype=json&platform=11&format={part_format_id}&vid={vid}&filename={filename}&appver=3.2.19.333";
-                //    var keyInfo = HttpHelper.Get(key_api, cookie);
-                //    var keyText = Regex.Match(keyInfo, "QZOutputJson=(.*)").Groups[1].Value.TrimEnd(';');
-                //    var keyJson = JsonConvert.DeserializeObject(keyText) as JObject;
-
-                //    if (string.IsNullOrEmpty((string)keyJson["key"]))
-                //    {
-                //        part.Remark = (string)keyJson["msg"];
-                //        partInfos.Add(part);
-                //        return;
-                //    }
-
-                //    var vkey = (string)keyJson["key"];
-                //    var url = $"{host}{filename}?vkey={vkey}";
-                //    part.Url = url;
-                //    partInfos.Add(part);
-                //});
 
                 videoInfo.Part = partInfos.OrderBy(x => x.Index).ToList();
                 videoInfo.PartCount = partInfos.Count;

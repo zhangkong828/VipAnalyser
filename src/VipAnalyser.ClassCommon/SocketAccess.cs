@@ -16,7 +16,7 @@ namespace VipAnalyser.ClassCommon
                 socket = SocketHelper.GetSocket(out ipe, port, "127.0.0.1");
                 SocketHelper.Connect(socket, ipe, 3); //这里是内网
                 if (!socket.Connected)
-                    throw new Exception(ArtificialCode.A_ProgramNoStarted.ToString());
+                    throw new Exception("未启动/已关闭 无法连接");
 
                 ArtificialParamModel paramModel = new ArtificialParamModel();
                 paramModel.Method = method;
@@ -34,7 +34,7 @@ namespace VipAnalyser.ClassCommon
                 }
                 catch
                 {
-                    throw new Exception(ArtificialCode.A_RequestAccidentBreak.ToString());
+                    throw new Exception("请求被意外中断");
                 }
 
                 var resultModel = JsonConvert.DeserializeObject<ArtificialResultModel>(result);
