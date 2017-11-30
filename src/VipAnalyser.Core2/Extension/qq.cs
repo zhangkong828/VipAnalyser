@@ -109,61 +109,70 @@ namespace VipAnalyser.Core2.Extension
 
                 var result = new List<VideoInfo>();
 
-                Parallel.ForEach(streams, stream =>
+                var tasks = new List<Task>();
+                foreach (var stream in streams)
                 {
-                    var quality = (string)stream["name"];
-                    var definition = (string)stream["cname"];
-                    definition = definition.Replace(";", "");
-                    var part_format_id = (int)stream["id"];
+                    var task = Task.Run(() =>
+                      {
+                          var quality = (string)stream["name"];
+                          var definition = (string)stream["cname"];
+                          definition = definition.Replace(";", "");
+                          var part_format_id = (int)stream["id"];
+                          var fs = (int)stream["fs"];
 
-                    var ci = infoJson["vl"]["vi"][0]["cl"]["ci"];
-                    var partInfos = new List<PartInfo>();
-                    foreach (var item in ci)
-                    {
-                        var index = (int)item["idx"];
-                        double.TryParse((string)item["cd"], out double duration);
-                        var id = (string)item["keyid"];
-                        partInfos.Add(new PartInfo()
-                        {
-                            Index = index,
-                            Id = id,
-                            Duration = duration
-                        });
-                    }
+                          var ci = infoJson["vl"]["vi"][0]["cl"]["ci"];
+                          var partInfos = new List<PartInfo>();
+                          foreach (var item in ci)
+                          {
+                              var index = (int)item["idx"];
+                              double.TryParse((string)item["cd"], out double duration);
+                              var id = (string)item["keyid"];
+                              partInfos.Add(new PartInfo()
+                              {
+                                  Index = index,
+                                  Id = id,
+                                  Duration = duration
+                              });
+                          }
 
-                    Parallel.ForEach(partInfos, part =>
-                    {
-                        var filename = $"{fn_pre}.p{part_format_id % 10000}.{part.Index}.mp4";
-                        part.Name = filename;
-                        var key_api = $"http://vv.video.qq.com/getkey?otype=json&platform=11&format={part_format_id}&vid={vid}&filename={filename}&appver=3.2.19.333";
-                        var keyInfo = HttpHelper.Get(key_api, cookie);
-                        var keyText = Regex.Match(keyInfo, "QZOutputJson=(.*)").Groups[1].Value.TrimEnd(';');
-                        var keyJson = JsonConvert.DeserializeObject(keyText) as JObject;
+                          Parallel.ForEach(partInfos, part =>
+                          {
+                              Task.Delay(100);
+                              var filename = $"{fn_pre}.p{part_format_id % 10000}.{part.Index}.mp4";
+                              part.Name = filename;
+                              var key_api = $"http://vv.video.qq.com/getkey?otype=json&platform=11&format={part_format_id}&vid={vid}&filename={filename}&appver=3.2.19.333";
+                              var keyInfo = HttpHelper.Get(key_api, cookie);
+                              var keyText = Regex.Match(keyInfo, "QZOutputJson=(.*)").Groups[1].Value.TrimEnd(';');
+                              var keyJson = JsonConvert.DeserializeObject(keyText) as JObject;
 
-                        if (string.IsNullOrEmpty((string)keyJson["key"]))
-                        {
-                            part.Remark = (string)keyJson["msg"];
-                            return;
-                        }
+                              if (string.IsNullOrEmpty((string)keyJson["key"]))
+                              {
+                                  part.Remark = (string)keyJson["msg"];
+                                  return;
+                              }
 
-                        var vkey = (string)keyJson["key"];
-                        var url = $"{host}{filename}?vkey={vkey}";
-                        part.Url = url;
+                              var vkey = (string)keyJson["key"];
+                              var url = $"{host}{filename}?vkey={vkey}";
+                              part.Url = url;
 
-                    });
+                          });
 
-                    var videoInfo = new VideoInfo()
-                    {
-                        Name = title,
-                        Type = type,
-                        Part = partInfos.OrderBy(x => x.Index).ToList(),
-                        PartCount = partInfos.Count,
-                        Definition = definition
-                    };
-                    result.Add(videoInfo);
-                });
+                          var videoInfo = new VideoInfo()
+                          {
+                              Name = title,
+                              Type = type,
+                              Part = partInfos.OrderBy(x => x.Index).ToList(),
+                              PartCount = partInfos.Count,
+                              Definition = definition,
+                              Sort = fs//根据fs排序  越清晰 越大
+                          };
+                          result.Add(videoInfo);
+                      });
+                    tasks.Add(task);
+                }
+                Task.WaitAll(tasks.ToArray());
 
-                videoInfos = result;
+                videoInfos = result.OrderBy(x => x.Sort).ToList();
 
                 return true;
             }

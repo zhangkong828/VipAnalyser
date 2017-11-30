@@ -103,7 +103,7 @@ namespace VipAnalyser.TestClient
                 var stopkey = Guid.NewGuid().ToString();
                 txt_stopkey.Text = stopkey;
                 rtxt_Result.Text = string.Empty;
-
+                var timeout = int.Parse(numeric_Timeout.Value.ToString());
                 string result = string.Empty;
                 if (radio_local.Checked)
                 {
@@ -111,7 +111,7 @@ namespace VipAnalyser.TestClient
                     result = SocketAccess.Access<string, string>(
                         txtType.Text,
                         rtxt_Param.Text,
-                        int.Parse(numeric_Timeout.Value.ToString()),
+                        timeout,
                         stopkey,
                         Convert.ToInt32(txtAddress.Text));
                 }
@@ -119,8 +119,8 @@ namespace VipAnalyser.TestClient
                 {
                     //http
                     var url = txtAddress.Text + txtType.Text;
-                    var postData = rtxt_Param.Text.Replace("\n","");
-                    result = HttpHelper.Post(url, postData);
+                    var postData = rtxt_Param.Text.Replace("\n", "");
+                    result = HttpHelper.Post(url, postData, null, timeout);
                 }
 
                 try

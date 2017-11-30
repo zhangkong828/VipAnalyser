@@ -42,7 +42,7 @@ namespace VipAnalyser.ClassCommon
             return html;
         }
 
-        public static string Post(string url, string postData, string cookie = null, string encodingStr = "UTF-8")
+        public static string Post(string url, string postData, string cookie = null, int timeout = 10, string encodingStr = "UTF-8")
         {
             var html = "";
             var encoding = Encoding.UTF8;
@@ -57,7 +57,7 @@ namespace VipAnalyser.ClassCommon
                 request.Method = "POST";
                 if (!string.IsNullOrEmpty(cookie))
                     request.Headers[HttpRequestHeader.Cookie] = cookie;
-                request.Timeout = 1000 * 10;
+                request.Timeout = 1000 * timeout;
                 request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36";
                 byte[] byteArray = encoding.GetBytes(postData);
                 request.ContentType = "application/json";
