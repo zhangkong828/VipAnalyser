@@ -34,7 +34,7 @@ namespace VipAnalyser.ClassCommon.Models
 
         public string Definition { get; set; }
         public string Type { get; set; }
-        public int Sort { get; set; }
+        public long Size { get; set; }
     }
 
     public class PartInfo
