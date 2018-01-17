@@ -12,27 +12,27 @@ namespace VipAnalyser.LoginManager
     {
         public static string QQCookies = string.Empty;
 
-        private static PhantomJSDriverHelper driver;
+        private static PhantomJSDriverHelper qqDriver;
         private static bool IsQuit = false;
 
         static LoginMonitor()
         {
-            driver = new PhantomJSDriverHelper();
         }
 
-        public static void QQ(string username, string password, int tryLoginTime = 10 * 60)
+        public static void QQ(string username, string password, int tryLoginTime = 60 * 10)
         {
             Task.Run(() =>
             {
-                Thread.Sleep(1000 * 2);
+                Thread.Sleep(1000 * 2);//预热
                 while (!IsQuit)
                 {
+                    qqDriver = new PhantomJSDriverHelper(QQCookies, ".qq.com");
                     try
                     {
                         int tryCount = 2;
                         var cookies = string.Empty;
                         QQLogin:
-                        if (!driver.QQLogin(username, password, out cookies))
+                        if (!qqDriver.QQLogin(username, password, out cookies))
                         {
                             if (tryCount > 0)
                             {
@@ -49,13 +49,13 @@ namespace VipAnalyser.LoginManager
                     }
                     catch (Exception ex)
                     {
-                        Logger.Fatal("QQ登录检测未知异常", ex);
+                        Logger.Fatal($"QQ登录检测未知异常 \r\n {ex.Message} \r\n {ex.StackTrace}");
                     }
                     finally
                     {
                         try
                         {
-                            driver.Close();
+                            qqDriver.Close();
                         }
                         catch { }
                     }
@@ -70,7 +70,7 @@ namespace VipAnalyser.LoginManager
             IsQuit = true;
             try
             {
-                driver.Quit();
+                qqDriver.Quit();
             }
             catch { }
         }
