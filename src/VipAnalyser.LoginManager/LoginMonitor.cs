@@ -29,16 +29,17 @@ namespace VipAnalyser.LoginManager
                     qqDriver = new PhantomJSDriverHelper(QQCookies, ".qq.com");
                     try
                     {
-                        int tryCount = 2;
+                        //int tryCount = 2;
                         var cookies = string.Empty;
-                        QQLogin:
+                        //QQLogin:
                         if (!qqDriver.QQLogin(username, password, out cookies))
                         {
-                            if (tryCount > 0)
-                            {
-                                tryCount--;
-                                goto QQLogin;
-                            }
+                            //if (tryCount > 0)
+                            //{
+                            //    tryCount--;
+                            //    goto QQLogin;
+                            //}
+                            Console.WriteLine("登录失败");
                             Logger.Trace("QQ登录检测：登录失败");
                         }
                         else
@@ -53,11 +54,7 @@ namespace VipAnalyser.LoginManager
                     }
                     finally
                     {
-                        try
-                        {
-                            qqDriver.Close();
-                        }
-                        catch { }
+                        qqDriver.Quit();
                     }
 
                     Thread.Sleep(1000 * tryLoginTime);
@@ -68,11 +65,8 @@ namespace VipAnalyser.LoginManager
         public static void Quit()
         {
             IsQuit = true;
-            try
-            {
-                qqDriver.Quit();
-            }
-            catch { }
+
+            qqDriver.Quit();
         }
 
     }

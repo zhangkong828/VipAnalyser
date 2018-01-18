@@ -41,7 +41,8 @@ namespace VipAnalyser.Service.Controllers
             catch (Exception ex)
             {
                 response.ErrCode = -1;
-                response.ErrMsg = JsonConvert.SerializeObject(ex);
+                response.ErrMsg = "出现异常，请求失败";
+                Logger.Fatal($"{ex.Message}\r\n{ex.StackTrace}");
             }
             response.Version = this.Version;
             Logger.Info($"--->request\r\n{JsonConvert.SerializeObject(request)}\r\n--->response\r\n{JsonConvert.SerializeObject(response)}");

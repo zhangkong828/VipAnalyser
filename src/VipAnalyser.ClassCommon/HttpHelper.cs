@@ -5,21 +5,16 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace VipAnalyser.ClassCommon
 {
     public class HttpHelper
     {
-        public static string Get(string url, string cookie = null, string encodingStr = "UTF-8")
+        public static string Get(string url, string cookie = null)
         {
             var html = "";
-            var encoding = Encoding.UTF8;
-            try
-            {
-                encoding = Encoding.GetEncoding(encodingStr);
-            }
-            catch { }
             try
             {
                 var request = (HttpWebRequest)WebRequest.Create(url);
@@ -28,12 +23,13 @@ namespace VipAnalyser.ClassCommon
                     request.Headers[HttpRequestHeader.Cookie] = cookie;
                 request.Timeout = 1000 * 10;
                 request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36";
-                var response = (HttpWebResponse)request.GetResponse();
-                using (var sr = new StreamReader(response.GetResponseStream(), encoding))
+                //请求数据
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    html = sr.ReadToEnd();
+                    var bytes = GetByte(response);
+                    var encoding = GetEncoding(response, bytes);
+                    html = encoding.GetString(bytes);
                 }
-                html = GetResponseBody(response, encoding);
             }
             catch (Exception ex)
             {
@@ -66,12 +62,14 @@ namespace VipAnalyser.ClassCommon
                 {
                     stream.Write(byteArray, 0, byteArray.Length);
                 }
-                var response = (HttpWebResponse)request.GetResponse();
-                using (var sr = new StreamReader(response.GetResponseStream(), encoding))
+                //请求数据
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    html = sr.ReadToEnd();
+                    var bytes = GetByte(response);
+                    encoding = GetEncoding(response, bytes);
+                    html = encoding.GetString(bytes);
                 }
-                html = GetResponseBody(response, encoding);
+
             }
             catch (Exception ex)
             {
@@ -80,43 +78,70 @@ namespace VipAnalyser.ClassCommon
             return html;
         }
 
-
-        private static string GetResponseBody(HttpWebResponse response, Encoding encoding)
+        private static byte[] GetByte(HttpWebResponse response)
         {
-            string responseBody = string.Empty;
-            if (response.ContentEncoding.ToLower().Contains("gzip"))
+            byte[] ResponseByte = null;
+            using (MemoryStream _stream = new MemoryStream())
             {
-                using (GZipStream stream = new GZipStream(response.GetResponseStream(), CompressionMode.Decompress))
+                //GZIIP处理
+                if (response.ContentEncoding != null && response.ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    using (StreamReader reader = new StreamReader(stream, encoding))
-                    {
-                        responseBody = reader.ReadToEnd();
-                    }
+                    //开始读取流并设置编码方式
+                    new GZipStream(response.GetResponseStream(), CompressionMode.Decompress).CopyTo(_stream, 10240);
                 }
-            }
-            else if (response.ContentEncoding.ToLower().Contains("deflate"))
-            {
-                using (DeflateStream stream = new DeflateStream(
-                    response.GetResponseStream(), CompressionMode.Decompress))
+                else
                 {
-                    using (StreamReader reader =
-                        new StreamReader(stream, encoding))
+                    //开始读取流并设置编码方式
+                    response.GetResponseStream().CopyTo(_stream, 10240);
+                }
+                //获取Byte
+                ResponseByte = _stream.ToArray();
+            }
+            return ResponseByte;
+        }
+
+
+        private static Encoding GetEncoding(HttpWebResponse response, byte[] ResponseByte)
+        {
+            Encoding encoding = null;
+            Match meta = Regex.Match(Encoding.Default.GetString(ResponseByte), "<meta[^<]*charset=([^<]*)[\"']", RegexOptions.IgnoreCase);
+            string c = string.Empty;
+            if (meta != null && meta.Groups.Count > 0)
+            {
+                c = meta.Groups[1].Value.ToLower().Trim();
+            }
+            if (c.Length > 2)
+            {
+                try
+                {
+                    encoding = Encoding.GetEncoding(c.Replace("\"", string.Empty).Replace("'", "").Replace(";", "").Replace("iso-8859-1", "gbk").Trim());
+                }
+                catch
+                {
+                    if (string.IsNullOrEmpty(response.CharacterSet))
                     {
-                        responseBody = reader.ReadToEnd();
+                        encoding = Encoding.UTF8;
+                    }
+                    else
+                    {
+                        encoding = Encoding.GetEncoding(response.CharacterSet);
                     }
                 }
             }
             else
             {
-                using (Stream stream = response.GetResponseStream())
+                if (string.IsNullOrEmpty(response.CharacterSet))
                 {
-                    using (StreamReader reader = new StreamReader(stream, encoding))
-                    {
-                        responseBody = reader.ReadToEnd();
-                    }
+                    encoding = Encoding.UTF8;
+                }
+                else
+                {
+                    encoding = Encoding.GetEncoding(response.CharacterSet);
                 }
             }
-            return responseBody;
+            return encoding;
         }
+
+
     }
 }

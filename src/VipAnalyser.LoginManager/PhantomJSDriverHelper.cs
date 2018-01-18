@@ -100,7 +100,12 @@ namespace VipAnalyser.LoginManager
 
         public void Quit()
         {
-            _webDriver.Quit();
+            try
+            {
+                _webDriver.Quit();
+            }
+            catch { }
+
         }
 
         public void CloseWindow()
@@ -228,7 +233,6 @@ namespace VipAnalyser.LoginManager
             //登录后cookie
             cookies = GetAllCookiesTexts();
             Console.WriteLine($"cookie:{cookies}");
-            Quit();
             return true;
 
         }
