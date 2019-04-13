@@ -105,7 +105,7 @@ namespace VipAnalyser.ClassCommon
 
         public static bool IsComplete(List<byte> data)
         {
-            if (data.Count >= 4 && data[data.Count - 4] == 35 && data[data.Count - 3] == 81 && data[data.Count - 2] == 112 && data[data.Count - 1] == 112)
+            if (data.Count >= 4 && data[data.Count - 4] == 35 && data[data.Count - 3] == 73 && data[data.Count - 2] == 90 && data[data.Count - 1] == 75)
             {
                 for (int i = 0; i < 4; i++)
                 {
