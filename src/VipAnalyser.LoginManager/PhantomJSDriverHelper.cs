@@ -177,11 +177,9 @@ namespace VipAnalyser.LoginManager
             //等待 qq登录frame
             if (!WaitForElementExists(By.Id("login_win_type"), 15))
             {
-                Console.WriteLine($"没有弹出登录窗口");
+                pageSource = _webDriver.PageSource;
+                Console.WriteLine($"没有弹出登录,可能已登录");
                 //如果没有弹出qq登录窗，可能是已经登录了
-                //判断到期时间
-                //var s = _webDriver.PageSource;
-                //Console.WriteLine(s);
                 if (!WaitForElementExists(By.ClassName("_vip_desc"), 15))
                 {
                     return false;
@@ -195,6 +193,7 @@ namespace VipAnalyser.LoginManager
                 }
                 return false;
             }
+            pageSource = _webDriver.PageSource;
             //选择qq登录
             _webDriver.FindElement(By.ClassName("btn_qq")).Click();
             //qq快速登录iframe
@@ -203,12 +202,21 @@ namespace VipAnalyser.LoginManager
                 return false;
             }
             _webDriver.SwitchTo().Frame("_login_frame_quick_");
-            //登录方式：账号密码登录
+            //快速安全登录iframe
+            if (!WaitForElementExists(By.Id("ptlogin_iframe"), 15))
+            {
+                return false;
+            }
+            _webDriver.SwitchTo().Frame("ptlogin_iframe");
+            //pageSource = _webDriver.PageSource;
+            //选择账号密码登录
             _webDriver.FindElement(By.Id("switcher_plogin")).Click();
             Console.WriteLine("选择账号密码登录");
+            Thread.Sleep(2000);
             //登录
             _webDriver.FindElement(By.Id("u")).SendKeys(username);
             _webDriver.FindElement(By.Id("p")).SendKeys(password);
+            Thread.Sleep(2000);
             _webDriver.FindElement(By.Id("login_button")).Click();
             Console.WriteLine("点击登录");
             Thread.Sleep(2000);

@@ -35,6 +35,7 @@ namespace VipAnalyser.Service.Controllers
                 }
                 else
                 {
+                    //response = new Core2.Extension.QQ().Analyse(request.Url, LoginMonitor.QQCookies);
                     response = AnalysisFactory.GetResponse(request.Url, LoginMonitor.QQCookies);
                 }
             }

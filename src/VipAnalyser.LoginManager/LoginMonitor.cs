@@ -19,7 +19,7 @@ namespace VipAnalyser.LoginManager
         {
         }
 
-        public static void QQ(string username, string password, int tryLoginTime = 60 * 10)
+        public static void QQ(string username, string password, int tryLoginTime = 60 * 30)
         {
             Task.Run(() =>
             {
