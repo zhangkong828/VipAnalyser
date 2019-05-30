@@ -43,7 +43,7 @@ namespace VipAnalyser.Web.Controllers
             {
                 //result.Add("http://movie.ks.js.cn/flv/other/1_0.mp4");
                 //解析失败   
-                //应该返回错误 todo  这里返回null
+                //应该返回错误 这里返回null
             }
             else
             {
