@@ -1,0 +1,107 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>视频解析接口</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-siteapp">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link href="~/css/bootsnav.min.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header class="gnome-header">
+        <nav class="navbar navbar-default clearfix">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-wrapper" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                    </button>
+                    <a class="gnome-navbar-brand visible-xs" title="视频解析" href="/">视频解析</a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-wrapper" aria-expanded="false" style="height: 1px;">
+                    <ul class="nav navbar-nav">
+                        <li><a title="首页" href="/">首页</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container clearfix">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="embed-responsive embed-responsive-16by9" id="iframeBox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-10 col-xs-12" style="margin-top:8px;">
+                    <div class="input-group" style="width: 100%;">
+                        <input id="url" class="form-control input-lg" type="text" name="url" placeholder="输入视频播放地址，如：https://v.qq.com/x/cover/qee75hz1x7m6n3s.html" value="">
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-12" style="margin-top:8px;">
+                    <button class="btn btn-success btn-lg btn-block" id="btn">解析</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jQuery-Paging/1.2.0/jquery.paging.min.js"></script>
+    <script>
+        $(function () {
+
+            $("#btn").click(function () {
+                if (isMobile()) {
+                    alert("移动端请确保安装Flash插件");
+                    return;
+                }
+                var url = encodeURIComponent($.trim($("#url").val()));
+                if (!CheckUrl(url)) {
+                    alert("请输入正确的视频地址！");
+                    return;
+                }
+                var iframeBox = document.getElementById("iframeBox");
+                var iframe = document.createElement("iframe");
+                iframe.src = "/analyse/frame?rk=" + response.requestkey;
+                iframe.className = "embed-responsive-item";
+                iframeBox.appendChild(iframe);
+            });
+            function CheckUrl(str) {
+                var reg = /(http||https).+?v.qq.com.+?/;
+                if (!reg.test(str)) {
+                    return false;
+                }
+                return true;
+            };
+            function isMobile() {
+                if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android|ios)/i)) {
+                    return true;
+                }
+                return false;
+            }
+        })
+    </script>
+</body>
+</html>
