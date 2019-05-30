@@ -19,19 +19,20 @@ namespace VipAnalyser.Web.Controllers
             return View();
         }
 
-        [Route("/analyse/frame")]
-        public ActionResult AnalyseFrame(string rk)
+        public ActionResult AnalyseFrame(string url)
         {
-            if (string.IsNullOrEmpty(rk))
+            if (string.IsNullOrEmpty(url))
             {
                 return HttpNotFound();
             }
-            ViewData["rk"] = rk;
+            ViewData["rk"] = FormatHelper.EncodeBase64(url);
             return View();
         }
 
-        public ActionResult Core(string url)
+        [HttpGet]
+        public ActionResult Core(string rk)
         {
+            var url = FormatHelper.DecodeBase64(rk);
             var ckplayerJson = new CKPlayerJsonViewModel() { autoplay = true };
             var response = this.Analyse(url);
 
@@ -70,7 +71,7 @@ namespace VipAnalyser.Web.Controllers
                 }
             }
 
-            return Json(ckplayerJson);
+            return Json(ckplayerJson,JsonRequestBehavior.AllowGet);
         }
 
 

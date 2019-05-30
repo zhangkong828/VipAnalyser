@@ -92,8 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ckplayer\ckplayer.js" />
+    <Content Include="Content\ckplayer\ckplayer.min.js" />
     <Content Include="Content\ckplayer\ckplayer.swf" />
     <Content Include="Content\ckplayer\ckplayer.xml" />
+    <Content Include="Content\ckplayer\hls\hls.js" />
+    <Content Include="Content\ckplayer\hls\hls.min.js" />
     <Content Include="Content\ckplayer\language.xml" />
     <Content Include="Content\ckplayer\style.xml" />
     <Content Include="Global.asax" />
@@ -102,6 +105,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="FormatHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -111,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="Content\ckplayer\hls\LICENSE" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AnalyseFrame.cshtml" />

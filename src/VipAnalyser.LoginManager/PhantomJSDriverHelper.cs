@@ -170,12 +170,12 @@ namespace VipAnalyser.LoginManager
             Console.WriteLine("开始检测QQ登录");
             cookies = string.Empty;
             var pageSource = string.Empty;
-            var url = $"https://v.qq.com/u/history/?r={DateTime.Now.Ticks}";
+            var url = $"https://v.qq.com/biu/u/history/?r={DateTime.Now.Ticks}";
             Console.WriteLine($"跳转url:{url}");
             _webDriver.Navigate().GoToUrl(url);
             Thread.Sleep(2000);
             //等待 qq登录frame
-            if (!WaitForElementExists(By.Id("login_win_type"), 15))
+            if (!WaitForElementExists(By.Id("login_win"), 30))
             {
                 pageSource = _webDriver.PageSource;
                 Console.WriteLine($"没有弹出登录,可能已登录");

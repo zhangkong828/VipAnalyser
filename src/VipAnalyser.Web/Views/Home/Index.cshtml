@@ -15,8 +15,6 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
-    <link href="~/css/bootsnav.min.css" rel="stylesheet" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -59,7 +57,7 @@
             <div class="col-md-12">
                 <div class="col-md-10 col-xs-12" style="margin-top:8px;">
                     <div class="input-group" style="width: 100%;">
-                        <input id="url" class="form-control input-lg" type="text" name="url" placeholder="输入视频播放地址，如：https://v.qq.com/x/cover/qee75hz1x7m6n3s.html" value="">
+                        <input id="url" class="form-control input-lg" type="text" name="url" placeholder="输入视频播放地址，如：https://v.qq.com/x/cover/qee75hz1x7m6n3s.html" value="https://v.qq.com/x/cover/qee75hz1x7m6n3s.html">
                     </div>
                 </div>
                 <div class="col-md-2 col-xs-12" style="margin-top:8px;">
@@ -78,13 +76,13 @@
                     return;
                 }
                 var url = encodeURIComponent($.trim($("#url").val()));
-                if (!CheckUrl(url)) {
-                    alert("请输入正确的视频地址！");
-                    return;
-                }
+                //if (!CheckUrl(url)) {
+                //    alert("请输入正确的视频地址！");
+                //    return;
+                //}
                 var iframeBox = document.getElementById("iframeBox");
                 var iframe = document.createElement("iframe");
-                iframe.src = "/analyse/frame?rk=" + response.requestkey;
+                iframe.src = "/Home/AnalyseFrame?url=" + url;
                 iframe.className = "embed-responsive-item";
                 iframeBox.appendChild(iframe);
             });

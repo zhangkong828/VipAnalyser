@@ -2,7 +2,7 @@
 @{
     Layout = null;
     var rk = ViewData["rk"];
-    var website = $"/analyse/core?rk={rk}";
+    var website = $"/home/core?rk={rk}";
 }
 <!DOCTYPE html>
 <html>
@@ -22,7 +22,7 @@
                 variable: 'player',//该属性必需设置，值等于下面的new chplayer()的对象
                 autoplay: true,
                 flashplayer: true,//如果强制使用flashplayer则设置成true
-                video: 'website:@Html.Raw(website)'//视频地址
+                video: 'website:@website'//视频地址
             };
             var player = new ckplayer(videoObject);
         })

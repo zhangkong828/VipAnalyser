@@ -12,7 +12,8 @@ namespace VipAnalyser.LoginManager
     {
         public static string QQCookies = string.Empty;
 
-        private static PhantomJSDriverHelper qqDriver;
+        //private static PhantomJSDriverHelper qqDriver;
+        private static ChromeDriverHelper qqDriver;
         private static bool IsQuit = false;
 
         static LoginMonitor()
@@ -26,7 +27,8 @@ namespace VipAnalyser.LoginManager
                 Thread.Sleep(1000 * 2);//预热
                 while (!IsQuit)
                 {
-                    qqDriver = new PhantomJSDriverHelper(QQCookies, ".qq.com");
+                    //qqDriver = new PhantomJSDriverHelper(QQCookies, ".qq.com");
+                    qqDriver = new ChromeDriverHelper(QQCookies, ".qq.com");
                     try
                     {
                         //int tryCount = 2;
